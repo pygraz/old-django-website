@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load markup crispy_forms_tags %}
+{% block page_class %}frontpage{% endblock %}
+{% block nav-start %}active{% endblock %}
+{% block body %}
+    <section id="next-meetup" class="{% if next_meetup %}upcoming{% else %}empty{% endif %}">
+        {% if next_meetup %}
+        <h1><a class="icona" data-icon="→" href="{{ next_meetup.get_absolute_url }}">Nächstes Treffen am {{ next_meetup.start_date|date:"DATE_FORMAT" }} um {{ next_meetup.start_date|time:"TIME_FORMAT" }} Uhr</a></h1>
+        {% with next_meetup as meetup %}
+        {% include "meetups/meetup-data.html" %}
+        {% endwith %}
+        {% else %}
+        <p>Derzeit gibt es leider noch keine Informationen zum nächten Treffen.</p>
+        {% endif %}
+    </section>
+    <section id="session-proposals">
+        <h1 data-icon="■" class="iconb">Session-Ideen</h1>
+        {% if session_proposals %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Titel</th>
+                    <th>Vortragender</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for proposal in session_proposals %}
+                <tr>
+                    <td class="title"><a href="{% url view-session proposal.pk %}">{{ proposal.title }}</a></td></td>
+                    <td class="speaker">
+                        {% if proposal.speaker %}
+                            <span>{{ proposal.get_speaker_name }}</span>
+                        {% else %}
+                            <span>{{ proposal.get_speaker_name }}</span>
+                        {% endif %}
+                    </td>
+                {% endfor %}    
+            </tbody>
+        </table>
+        {% endif %}
+        <section id="propose-session">
+            <h1>Deine Session-Idee</h1>
+            <p class="info">Möchtest du etwas präsentieren? Dann trage deinen Vorschlag hier ein. Wenn es dann wieder auf ein neues Meetup zugeht, werden wir dich
+                via E-Mail kontaktieren, um einen Termin auszumachen.</p>
+            {% crispy submission_form %}
+        </section>
+    </section>
+    {% if past_meetups %}
+    <section id="past-meetups">
+        <h1 data-icon="◷" class="iconb">Vergangene Meetups</h1>
+        <ul>
+            {% for meetup in past_meetups %}
+            <li><a href="{{ meetup.get_absolute_url }}">{{ meetup.start_date|date:"DATE_FORMAT" }}</a></li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+{% endblock %}

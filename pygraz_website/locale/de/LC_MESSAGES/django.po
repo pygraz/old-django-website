@@ -1,0 +1,82 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-28 11:23+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+
+#: apps/accounts/forms.py:18
+msgid "Log in"
+msgstr ""
+
+#: apps/accounts/forms.py:28 apps/accounts/forms.py:40
+#: apps/accounts/forms.py:53
+msgid "Save changes"
+msgstr ""
+
+#: apps/accounts/forms.py:66
+msgid "Registrieren"
+msgstr ""
+
+#: apps/accounts/models.py:11
+msgid "user"
+msgstr ""
+
+#: apps/meetups/admin.py:14 apps/meetups/admin.py:31 apps/meetups/admin.py:68
+msgid "Yes"
+msgstr ""
+
+#: apps/meetups/admin.py:15 apps/meetups/admin.py:32 apps/meetups/admin.py:69
+msgid "No"
+msgstr ""
+
+#: apps/meetups/admin.py:47
+msgid "speaker type"
+msgstr ""
+
+#: apps/meetups/admin.py:51
+msgid "Anonymous"
+msgstr ""
+
+#: apps/meetups/admin.py:52
+msgid "Registered"
+msgstr ""
+
+#: apps/meetups/admin.py:64
+msgid "meetup.com available"
+msgstr ""
+
+#: apps/meetups/models.py:19
+msgid "location"
+msgstr ""
+
+#: apps/meetups/models.py:20
+msgid "locations"
+msgstr ""
+
+#: templates/userena/signup_complete.html:13
+#, python-format
+msgid "We will store your signup information for %(userena_activation_days)s days on our server. "
+msgstr "Ihre Registrierungsinformationen werden für %(userena_activation_days)s Tag(e) bei uns gespeichert."
+
+msgid "You have been signed out."
+msgstr "Sie wurden abgemeldet."
+
+msgid "You have been sent an e-mail with an activation link to the supplied email."
+msgstr "Sie erhalten umgehend eine E-Mail, mit dem Sie Ihren neuen Account aktivieren können."
+
+msgid "Signup almost done!"
+msgstr "Registrierung fast abgeschlossen"

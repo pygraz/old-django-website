@@ -1,0 +1,10 @@
+*.pyc
+.env
+*.sass-cache*
+*.diff
+*.sql
+*.sublime*
+.codeintel
+*.DS_Store
+*.zip
+*.lst

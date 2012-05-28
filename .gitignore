@@ -1,0 +1,17 @@
+*.pyc
+.env
+*.css
+*.sass-cache*
+*.diff
+*.sql
+*.sublime*
+.codeintel
+pygraz_website/static/css/icomoon
+*.DS_Store
+*.zip
+*.mo
+pygraz_website/settings/live.py
+pygraz_website/settings/stage.py
+pygraz_website/settings/development.py
+live.ini
+stage.ini

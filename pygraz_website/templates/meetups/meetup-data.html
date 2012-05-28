@@ -1,0 +1,59 @@
+{% load markdown_tags %}
+<div class="meetup-data">
+    <div id="sessions-and-notes">
+        <section id="planned-sessions">
+            <h1>{% if meetup.is_in_future %}Geplante {% endif %}Sessions</h1>
+            {% with meetup.sessions.all as sessions %}
+                {% if sessions %}
+                    {% for session in sessions %}
+                    <section class="session">
+                        <h1><a class="iconb" data-icon="■" href="{{ session.get_absolute_url }}">{{ session.title }}</a></h1>
+                        {% if session.speaker_name or session.speaker %}
+                        <p class="meta">von {% if session.speaker %}{{ session.get_speaker_name }}{% else %}{{ session.speaker_name }}{% endif %}</p>
+                        {% endif %}
+                        {% if session.abstract %}
+                        <div class="abstract">{{ session.abstract|markdown }}</div>
+                        {% endif %}
+                        {% if session.slides_url %}
+                            <p data-icon="❏" class="slides iconb"><a href="{{ session.slides_url }}" rel="external" target="_blank">Folien</a></p>
+                        {% endif %}
+                    </section>
+                    {% endfor %}
+                {% else %}
+                    {% if meetup.is_in_future %}
+                        <p class="empty">Derzeit sind noch keine Sessions für dieses Meetup fix geplant. Falls du einen Session-Vorschlag eingereicht hast, bitte lass
+                            uns wissen, falls du die Session bei diesem Meetup halten möchtest.</p>
+                    {% else %}
+                        <p class="empty">Keine Sessions für dieses Meetup eingetragen.</p>
+                    {% endif %}
+                {% endif %}
+            {% endwith %}
+        </section>
+        {% if show_notes and meetup.notes %}
+        <section id="notes">
+            <h1>Notizen, Links, etc.</h1>
+            {{ meetup.notes|markdown }}
+        </section>
+        {% endif %}
+    </div>
+    {% if meetup.meetupcom_id and meetup.is_in_future %}
+    <div class="meetupcom">
+        <p><img src="/static/imgs/meetup-logo.png" alt="" class="logo"/>Falls du vorhast, zu kommen, bitte trage dich auf <a href="http://meetup.com/PyGRAZ/events/{{ meetup.meetupcom_id}}">Meetup.com</a> ein! Es ist nicht zwingend erforderlich, macht aber unsere Arbeit leichter, wenn wir abschätzen können, wie viele Leute in etwa kommen.</p>
+    </div>
+    {% endif %}
+    <section id="location-info" {% if not meetup.location %}class="empty"{% endif %}>
+        {% if meetup.location %}
+            <h1 class="iconb" data-icon="◉">Location: {{ meetup.location.name }}</h1>
+            {% if meetup.location.address %}
+                <p class="address">{{ meetup.location.address }}</p>
+            {% endif %}
+            <div class="description">{{ meetup.location.description }}</div>
+        {% else %}
+            {% if meetup.is_in_future %}
+                <p class="empty">Die Location steht zum jetzigen Zeitpunkt leider noch nicht fest.</p>
+            {% else %}
+                <p class="empty">Keine Location für dieses Meetup eingetragen.</p>
+            {% endif %}
+        {% endif %}
+    </section>
+</div>

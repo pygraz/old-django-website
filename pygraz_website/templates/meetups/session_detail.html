@@ -1,0 +1,50 @@
+{% extends "meetups/base.html" %}
+{% load markup %}
+{% block page_class %}session-details{% endblock %}
+{% block title %}{% if session.meetup %}Session{% else %}Session-Vorschlag{% endif %}: {{ session.title }} « {% endblock %}
+{% block body %}
+<article class="session-details">
+    <h1 data-icon="■" class="iconb">{% if session.meetup %}Session{% else %}Session-Vorschlag{% endif %}: {{ session.title }}</h1>
+    <p class="meta">von {{ session.get_speaker_name }}</p>
+    <ul class="actions">
+        {% if can_edit %}
+        <li><a class="iconb" data-icon="✍" href="edit/">Editieren</a></li>
+        {% endif %}
+        {% if can_delete %}
+        <li><a class="iconb" data-icon="♽" href="delete/">Löschen</a></li>
+        {% endif %}
+    </ul>
+    {% if not session.meetup %}
+    <p>Das ist bisher nur ein Session-Vorschlag.</p>
+    {% else %}
+    <p class="iconb" data-icon="◷">Dieses Session wurde am <a href="{{ session.meetup.get_absolute_url }}">{{ session.meetup.start_date|date:"DATE_FORMAT" }}</a> gehalten.</p>
+    {% endif %}
+    {% if session.slides_url %}
+        <p data-icon="❏" class="slides iconb"><a href="{{ session.slides_url }}" rel="external" target="_blank">Folien</a></p>
+    {% endif %}
+    <div class="abstract">{{ session.abstract|markdown }}</div>
+    {% if session.notes %}
+    <section id="notes">
+        <h1>Notizen</h1>
+        {{ session.notes|markdown }}
+    </section>
+    {% endif %}
+
+
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = '{{ disqus.site_id }}';
+        var disqus_identifier = "session:{{ session.pk }}";
+        var disqus_url = "{{ session.get_permalink }}";
+        var disqus_developer = {% if disqus.developer_mode %}1{% else %}0{% endif %};
+        var disqus_title = $('title').text();
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Bitte aktiviere JavaScript um <a href="http://disqus.com/?ref_noscript">Disqus-Kommentare</a> sehen zu können.</noscript>
+    <a href="http://disqus.com" class="dsq-brlink">Comments powered by <span class="logo-disqus">Disqus</span></a>
+</article>
+{% endblock body %}

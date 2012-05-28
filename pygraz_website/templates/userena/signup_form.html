@@ -1,0 +1,11 @@
+{% extends "userena/base_userena.html" %}
+{% load crispy_forms_tags %}
+{% block page_class %}fullpage-form{% endblock %}
+{% block title %}Registrieren « {% endblock %}
+{% block content %}
+    <h1>Registrieren</h1>
+    <p>Derzeit bringt Registrieren vor allem eines: Du kannst Session-Proposals und Sessions, die du selbst angelegt bzw. gehalten hast, auch wieder
+        editieren, falls dir mehr zu dem Thema eingefallen ist.</p>
+    <p>Wir lassen uns aber noch ein paar Goodies einfallen :-)</p>
+    {% crispy form %}
+{% endblock content %}

@@ -1,0 +1,7 @@
+{% load i18n %}{% autoescape off %}
+{% if not without_usernames %}{% blocktrans with user.username as username %}Hallo {{ username }},{% endblocktrans %}
+{% endif %}
+{% blocktrans with site.name as site %}Du möchtest deine E-Mail-Adresse auf {{ site }} ändern?{% endblocktrans %}
+
+{% blocktrans %}Eine E-Mail mit einem Bestätigungslink wurden an {{ new_email }} gesandt. Bitte klicke den Link in dieser E-Mail, um deine neue E-Mail-Adresse zu aktivieren.{% endblocktrans %}
+{% endautoescape %}

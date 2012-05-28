@@ -1,0 +1,370 @@
+$blue: #306998;
+$yellow: #ffd743;
+$red: darken(red, 10);
+$green: green;
+
+@import "compass/utilities/general/clearfix";
+@import "compass/css3/images";
+@import "compass/css3/border-radius";
+@import "compass/css3/box-shadow";
+@import "fonts";
+@import "forms";
+@import "icomoon/style";
+
+html {
+    //background-color: #EEE;
+}
+body {
+    font-family: 'PTSans', Arial;
+    margin: 0;
+    color: #333;
+    //@include background(linear-gradient(#FFF, #DDD));
+    //background: #FAFAFA;
+}
+
+body > .container {
+    width: 920px;
+    margin: auto;
+    //@include border-radius(2px);
+    //@include box-shadow(#cecece 0 3px 3px);
+    padding: 20px;
+    padding-top: 80px;
+    background: #FFF;
+}
+
+a {
+    color: #666;
+    text-decoration: underline;
+    &:hover {
+        color: $blue;
+    }
+}
+
+.icona:after {
+    padding-left: 5px;
+}
+.iconb:before {
+    padding-right: 5px;
+}
+
+#primary-nav {
+    z-index: 1000;
+    background: #333;
+    margin-bottom: 30px;
+    position: fixed;
+    width: 100%;
+    color: #FFF;
+    .w {
+        width: 920px;
+        margin: 0 auto;
+        position: relative;
+        @include pie-clearfix;
+    }
+    &:hover {
+        background: #333;
+    }
+    ul {
+        width: 620px;
+        float: left;
+        padding: 0;
+        margin: 0 auto;
+        list-style: none;
+        @include pie-clearfix;
+    }
+    li {
+        float: left;
+    }
+    a {
+        color: #FFF;
+        padding: 7px;
+        display: block;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    li.active a, a:hover {
+        color: $yellow;
+    }
+
+    #accountbox {
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 250px;
+        text-align: right;
+        &.logged-out {
+            a {
+                display: inline-block;
+            }
+        }
+        ul {
+            display: none;
+            li {
+                float: none;
+                border-top: 1px dotted #FFF;
+            }
+        }
+        &:hover ul {
+            width: 100%;
+            display: block;
+            background: #333;
+        }
+    }
+}
+
+header {
+    @include pie-clearfix;
+    //border-bottom: 1px solid #E1E1E1;
+    padding-bottom: 30px;
+}
+
+#mission {
+    width: 500px;
+    float: right;
+    line-height: 1.3em;
+    padding: 10px;
+    font-weight: bold;
+    margin: 0;
+    color: #666;
+}
+
+#logo {
+    display: block;
+    width: 276px;
+    height: 80px;
+    float: left;
+}
+
+#body {
+    padding: 10px 0;
+    @include pie-clearfix;
+}
+
+footer {
+    border-top: 1px solid #E1E1E1;
+    padding: 10px 0;
+    font-size: 90%;
+    h2 {
+        font-weight: bold;
+        font-size: 100%;
+        text-transform: uppercase;
+    }
+    #credits {
+        text-align: right;
+    }
+}
+
+table {
+    width: 100%;
+    margin-bottom: 1em;
+    border-collapse: collapse;
+    td, th {
+        padding: 3px 5px;
+        border-bottom: 1px solid #DDD;
+    }
+    thead {
+        th {
+            color: #AAA;
+            font-weight: bold;
+            text-align: left;
+        }
+    }
+    tbody {
+        tr:nth-child(even) td {
+            background: #EFEFEF;
+        }
+        tr:hover {
+            background: #FAFAFA;
+        }
+    }
+}
+
+.session, .session-details {
+    h1 {
+        margin-bottom: 5px;
+        font-size: 19px;
+        a {
+            text-decoration: none;
+        }
+    }
+    .meta {
+        margin-top: 0;
+        font-size: 95%;
+        font-style: italic;
+        padding-left: 25px;
+    }
+}
+
+/**
+ * Frontpage
+ */
+body.frontpage {
+    #next-meetup {
+        @include pie-clearfix;
+        &.empty {
+            font-size: 120%;
+            text-align: center;
+            @include border-radius(5px);
+            padding: 10px;
+            background: #EFEFEF;
+        }
+    }
+
+    .upcoming {
+        background: #EEE url(../imgs/toparrow-bg.png) 50% 0% no-repeat;
+        padding: 20px 0;
+        border-bottom: 3px solid #DDD;
+
+        > h1, > h1 > a {
+            //background: $blue;
+            //@include background(linear-gradient(lighten($blue, 10), $blue));
+            color: $blue;
+            color: $yellow;
+            padding: 10px;
+            background: #333;
+            margin: 0;
+            text-align: center;
+            font-family: 'LeagueGothic';
+            font-size: 32px;
+            text-decoration: none;
+        }
+    }
+    #sessions-and-notes, #location-info, .meetupcom {
+        padding: 10px 20px;
+    }
+    #sessions-and-notes {
+        @include pie-clearfix;
+        float: left;
+        width: 550px;
+    }
+    .session {
+        margin-top: 10px;
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+    #location-info, .meetupcom {
+        float: right;
+        width: 285px;
+        background: none;
+    }
+    #past-meetups, #session-proposals {
+        margin-top: 2em;
+        width: 48%;
+        padding: 10px;
+    }
+    #past-meetups {
+        float: right;
+        width: 35%;
+        @include background-image(linear-gradient(lighten($blue, 55), #FFF));
+        @include border-radius(5px 5px 0 0);
+    }
+    #session-proposals {
+        float: left;
+    }
+}
+
+#location-info {
+    font-size: 90%;
+}
+
+.meetupcom {
+    .logo {
+        float: left;
+        margin: 0 10px 0px 0;
+    }
+}
+.meetup-data {
+    .map {
+        height: 250px;
+        margin-bottom: 1em;
+    }
+    .meetupcom {
+        font-size: 90%;
+        @include background-image(linear-gradient(lighten(red, 40), white));
+        a {
+            font-weight: bold;
+            font-size: 120%;
+            color: black;
+            text-decoration: none;
+        }
+    }
+}
+
+body.meetup-details {
+    #sessions-and-notes {
+        float: left;
+        width: 60%;
+    }
+    .meetupcom, #location-info {
+        float: right;
+        width: 31%;
+        padding: 0px 2% 10px 2%;
+    }
+    #location-info {
+        background: lighten($blue, 40);
+        @include background-image(linear-gradient(lighten($blue, 50), #FFF));
+    }
+}
+
+article.session-details {
+    position: relative;
+    .actions {
+        background: #EFEFEF;
+        border: 1px solid #EEE;
+        list-style: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0;
+        margin: 0;
+        li {
+            padding: 0;
+            margin:0;
+            border-top: 2px solid #FFF;
+            &:first-child {
+                border-top: none;
+            }
+        }
+        a {
+            padding: 5px 8px;
+            display: block;
+            text-decoration: none;
+            &:hover {
+                color: #FFF;
+                background: $blue;
+            }
+        }
+    }
+}
+
+.alert {
+    padding: 10px;
+    border: 2px solid lighten($yellow, 30);
+    background: lighten($yellow, 30);
+    @include background-image(linear-gradient(lighten($yellow, 35),lighten($yellow, 30)));
+    @include border-radius(5px);
+    margin-bottom: 5px;
+    &:first-child {
+        margin-top: 5px;
+    }
+    .close {
+        display: none;
+    }
+    &.alert-success {
+        border-color: lighten($green, 65);
+        background: lighten($green, 65);
+        @include background-image(linear-gradient(lighten($green, 70), lighten($green, 65)));
+        color: darken($green, 30);
+    }
+    &.alert-error {
+        border-color: lighten($red, 50);
+        background: lighten($red, 50);
+        @include background-image(linear-gradient(lighten($red, 55), lighten($red, 50)));
+        color: darken($red, 20);
+    }
+}
+
+#disqus_thread {
+    clear: both;
+    padding-top: 20px;
+}
