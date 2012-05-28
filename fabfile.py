@@ -64,12 +64,12 @@ def install_environment():
 
 def update_db():
     with prefix(env_prefix), cd('app'):
-        run('python manage-production.py syncdb --noinput --migrate')
+        run('python manage-{0}.py syncdb --noinput --migrate'.format(env.environment))
 
 
 def collect_static_files():
     with prefix(env_prefix), cd('app'):
-        run('mkdir -p pygraz_website/static_collected && python manage-production.py collectstatic -c --noinput')
+        run('mkdir -p pygraz_website/static_collected && python manage-{0}.py collectstatic -c --noinput'.format(env.environment))
 
 
 def start_server():
