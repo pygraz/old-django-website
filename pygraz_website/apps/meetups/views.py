@@ -47,7 +47,7 @@ class DetailView(generic_views.DetailView):
 
     def get_object(self):
         if 'pk' in self.kwargs:
-            return get_object_or_404(self.model.select_related('location'),
+            return get_object_or_404(self.model.objects.select_related('location'),
                 pk=self.kwargs.get('pk'))
         else:
             date_start = datetime.datetime(int(self.kwargs.get('year')),
