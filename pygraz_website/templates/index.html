@@ -10,7 +10,7 @@
         {% include "meetups/meetup-data.html" %}
         {% endwith %}
         {% else %}
-        <p>Derzeit gibt es leider noch keine Informationen zum nächten Treffen.</p>
+        <p>Derzeit gibt es leider noch keine Informationen zum nächsten Treffen.</p>
         {% endif %}
     </section>
     <section id="session-proposals">
@@ -34,7 +34,7 @@
                             <span>{{ proposal.get_speaker_name }}</span>
                         {% endif %}
                     </td>
-                {% endfor %}    
+                {% endfor %}
             </tbody>
         </table>
         {% endif %}
