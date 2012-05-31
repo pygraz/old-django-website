@@ -7,3 +7,6 @@ images_dir = "./imgs"
 javascripts_dir = "./js"
 # To enable relative paths to assets via compass helper functions. Uncomment:
 # relative_assets = true
+
+# sync stdout so foreman and others can properly capture the output.
+$stdout.sync = true
