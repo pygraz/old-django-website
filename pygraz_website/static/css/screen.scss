@@ -43,6 +43,7 @@ a {
 .icona:after {
     padding-left: 5px;
 }
+
 .iconb:before {
     padding-right: 5px;
 }
@@ -303,14 +304,13 @@ body.meetup-details {
     #location-info {
         background: lighten($blue, 40);
         @include background-image(linear-gradient(lighten($blue, 50), #FFF));
+        @include border-radius(5px 5px 0 0);
     }
 }
 
 article.session-details {
     position: relative;
     .actions {
-        background: #EFEFEF;
-        border: 1px solid #EEE;
         list-style: none;
         position: absolute;
         top: 0;
@@ -319,10 +319,10 @@ article.session-details {
         margin: 0;
         li {
             padding: 0;
-            margin:0;
-            border-top: 2px solid #FFF;
+            @include border-radius(3px);
+            background: #EFEFEF;
             &:first-child {
-                border-top: none;
+                margin-bottom: 2px;
             }
         }
         a {
@@ -331,6 +331,7 @@ article.session-details {
             text-decoration: none;
             &:hover {
                 color: #FFF;
+                @include border-radius(3px);
                 background: $blue;
             }
         }
