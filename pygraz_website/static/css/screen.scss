@@ -247,6 +247,7 @@ body.frontpage {
         float: right;
         width: 285px;
         background: none;
+        clear: right;
     }
     #past-meetups, #session-proposals {
         margin-top: 2em;
@@ -300,6 +301,7 @@ body.meetup-details {
         float: right;
         width: 31%;
         padding: 0px 2% 10px 2%;
+        clear: right;
     }
     #location-info {
         background: lighten($blue, 40);
