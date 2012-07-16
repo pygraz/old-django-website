@@ -293,6 +293,9 @@ body.frontpage {
 }
 
 body.meetup-details {
+    h1 .time {
+        font-size: 22px;
+    }
     #sessions-and-notes {
         float: left;
         width: 60%;
