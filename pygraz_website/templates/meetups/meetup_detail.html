@@ -2,7 +2,7 @@
 {% block page_class %}meetup-details{% endblock%}
 {% block title %}{{ meetup.start_date|date:"DATE_FORMAT" }} « Meetups « {% endblock %}
 {% block body %}
-    <h1>Meetup vom {{ meetup.start_date.date|date:"DATE_FORMAT" }}</h1>
+    <h1>Meetup vom {{ meetup.start_date.date|date:"DATE_FORMAT" }}<span class="time"> um {{ meetup.start_date|time:"TIME_FORMAT" }} Uhr</span></h1>
     {% include "meetups/meetup-data.html" with show_notes="True" %}
     <div id="disqus_thread"></div>
     <script type="text/javascript">
