@@ -15,6 +15,7 @@ html {
     //background-color: #EEE;
 }
 body {
+    min-width: 400px;
     font-family: 'PTSans', Arial;
     margin: 0;
     color: #333;
@@ -23,7 +24,8 @@ body {
 }
 
 body > .container {
-    width: 920px;
+    max-width: 920px;
+    min-width: 360px;
     margin: auto;
     //@include border-radius(2px);
     //@include box-shadow(#cecece 0 3px 3px);
@@ -56,7 +58,7 @@ a {
     width: 100%;
     color: #FFF;
     .w {
-        width: 920px;
+        max-width: 920px;
         margin: 0 auto;
         position: relative;
         @include pie-clearfix;
@@ -373,4 +375,64 @@ article.session-details {
 #disqus_thread {
     clear: both;
     padding-top: 20px;
+}
+
+@media all and (max-width: 850px) {
+    body > .container {
+        padding: 0 10px 10px 10px;
+    }
+    #mission {
+        width: 98%;
+        padding: 10px 1% 0px 1%;
+        float: none;
+        clear: both;
+    }
+    body.frontpage {
+        #session-proposals, #past-meetups {
+            float: none;
+            width: 100%;
+            padding: 0;
+            h1 {
+                margin: 5px 0;
+            }
+        }
+        #past-meetups {
+            width: 96%;
+            padding: 2%;
+
+        }
+    }
+    form {
+        textarea {
+            max-width: 400px;
+            width: auto;
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+            max-width: 250px;
+        }
+    }
+    article.session-details .actions {
+        position: static;
+    }
+    body.frontpage, body.meetup-details {
+        #sessions-and-notes, #location-info, .meetupcom {
+            width: 96%;
+            padding: 5px 2%;
+            float: none;
+            h1 {
+                margin: 5px 0;
+            }
+        }
+    }
+    #primary-nav {
+        position: static;
+        margin-bottom: 20px;
+        ul, #accountbox {
+            position: static;
+            display: block;
+            float: none;
+            width: auto;
+            text-align: left;
+        }
+    }
 }
