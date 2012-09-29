@@ -15,9 +15,9 @@
         {% endif %}
     </ul>
     {% if not session.meetup %}
-    <p>Das ist bisher nur ein Session-Vorschlag.</p>
+        <p>Das ist bisher nur ein Session-Vorschlag.</p>
     {% else %}
-    <p class="iconb" data-icon="◷">Dieses Session wurde am <a href="{{ session.meetup.get_absolute_url }}">{{ session.meetup.start_date|date:"DATE_FORMAT" }}</a> gehalten.</p>
+        <p class="iconb" data-icon="◷">Dieses Session {% if session.meetup.is_in_future %}wird{% else %}wurde{% endif %} am <a href="{{ session.meetup.get_absolute_url }}">{{ session.meetup.start_date|date:"DATE_FORMAT" }}</a> gehalten.</p>
     {% endif %}
     {% if session.slides_url %}
         <p data-icon="❏" class="slides iconb"><a href="{{ session.slides_url }}" rel="external" target="_blank">Folien</a></p>
