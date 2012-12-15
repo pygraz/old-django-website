@@ -91,6 +91,15 @@ class MeetupComAvailable(admin.SimpleListFilter):
         else:
             return queryset.exclude(Q(meetupcom_id='') | Q(meetupcom_id__isnull=True))
 
+
+class RSVPAdmin(admin.ModelAdmin):
+    list_display = ['meetup', 'name', 'status', 'source']
+    list_filter = ['meetup']
+
+    def name(self, obj):
+        return obj.gplus_name
+
+
 admin.site.register(models.Meetup,
     list_display=['start_date', 'location'],
     list_filter=[MeetupComAvailable, ]
@@ -102,3 +111,5 @@ admin.site.register(models.Session,
 admin.site.register(models.Location,
     list_display=['name'],
     )
+
+admin.site.register(models.RSVP, RSVPAdmin)

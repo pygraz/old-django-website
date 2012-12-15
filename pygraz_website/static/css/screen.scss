@@ -2,6 +2,7 @@ $blue: #306998;
 $yellow: #ffd743;
 $red: darken(red, 10);
 $green: green;
+$baseColor: #333;
 
 @import "compass/utilities/general/clearfix";
 @import "compass/css3/images";
@@ -18,7 +19,7 @@ body {
     min-width: 400px;
     font-family: 'PTSans', Arial;
     margin: 0;
-    color: #333;
+    color: $baseColor;
     //@include background(linear-gradient(#FFF, #DDD));
     //background: #FAFAFA;
 }
@@ -435,4 +436,50 @@ article.session-details {
             text-align: left;
         }
     }
+}
+
+#gplus {
+    padding: 10px;
+    background: $yellow;
+    @include border-radius(5px);
+    @include background-image(linear-gradient(lighten($yellow, 30), #FFF));
+    @include pie-clearfix;
+    position: relative;
+    h1 {
+        margin: 0;
+    }
+    .evt-link {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+    .info {
+        float: right;
+        width: 38%;
+        margin: 0 0 0 2%;
+        font-size: 90%;
+    }
+    .fineprint {
+        text-align: right;
+        margin-left: 20%;
+        padding-top: 20px;
+        color: lighten($baseColor, 30);
+    }
+    #rsvps {
+        float: left;
+        width: 40%;
+        margin-left: 20%;
+        h1 {
+            font-size: 100%;
+        }
+        ul {
+            margin: 3px 0 0 0;
+            padding: 0 0 0 20px;
+        }
+    }
+}
+
+.fineprint {
+    font-size: 75%;
+    clear: both;
 }
