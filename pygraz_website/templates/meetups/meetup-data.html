@@ -35,6 +35,26 @@
             {{ meetup.notes|markdown }}
         </section>
         {% endif %}
+        {% if show_rsvps %}
+        {% if meetup.gplus_id %}
+        <section id="gplus">
+            <a href="https://plus.google.com/events/{{ meetup.gplus_id }}" title="Event-Seite auf Google+" class="evt-link"><img src="/static/imgs/gplus-64.png" alt="Event auf Google+" /></a>
+            <p class="info">Dieses Treffen wurde auch auf <a href="https://plus.google.com/events/{{ meetup.gplus_id }}">Google+</a>
+                angekündigt. Wenn Du teilnehmen möchtest, trage dich bitte dort ein.</p>
+            <section id="rsvps">
+                <h1>Es kommen ({{ rsvps.coming|length }}):*</h1>
+                {% if rsvps.coming %}
+                <ul>
+                    {% for rsvp in rsvps.coming %}
+                    <li><a href="{{ rsvp.url }}">{{ rsvp.name }}</a></li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </section>
+            <p class="fineprint">* Diese Anzeige ist möglicherweise zeitverzögert.</p>
+        </section>
+        {% endif %}
+        {% endif %}
     </div>
     {% if meetup.meetupcom_id and meetup.is_in_future %}
     <div class="meetupcom">

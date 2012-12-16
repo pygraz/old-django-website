@@ -6,6 +6,13 @@ from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
 
 
+RSVP_STATUS_CHOICES = (
+    ('not_coming', _("Not coming")),
+    ('coming', _("Coming")),
+    ('maybe', _("Maybe"))
+    )
+
+
 class MeetupManager(models.Manager):
     def get_past_meetups(self):
         """
@@ -13,6 +20,10 @@ class MeetupManager(models.Manager):
         """
         now = timezone.now()
         return self.get_query_set().filter(start_date__lt=now)
+
+    def get_future_meetups(self):
+        now = timezone.now()
+        return self.get_query_set().filter(start_date__gte=now)
 
 
 class SessionManager(models.Manager):
@@ -41,6 +52,7 @@ class Meetup(models.Model):
     start_date = models.DateTimeField()
     location = models.ForeignKey(Location, blank=True, null=True)
     meetupcom_id = models.CharField(blank=True, null=True, max_length=20)
+    gplus_id = models.CharField(blank=True, null=True, max_length=50)
     notes = models.TextField(blank=True, null=True)
 
     objects = MeetupManager()
@@ -112,3 +124,35 @@ class Session(models.Model):
     class Meta(object):
         verbose_name = 'Session'
         verbose_name_plural = 'Sessions'
+
+
+class RSVP(models.Model):
+    """
+    A RSVP object represents the status of attendence of a person at a meetup.
+    The source of this information in the current implementation is Google+
+    and not linked to a local user account.
+
+    The status can be either coming, not coming, maybe or unknown (represented
+    by a null value).
+    """
+    status = models.CharField(_("Status"), choices=RSVP_STATUS_CHOICES,
+        null=True, blank=True, max_length=20)
+    gplus_name = models.CharField(_("Google+ Username"), null=True, blank=True,
+        max_length=100)
+    gplus_uid = models.CharField(_("Google+ User ID"), null=True, blank=True,
+        max_length=100)
+    meetup = models.ForeignKey("Meetup", null=False, verbose_name=_("Meetup"),
+        related_name='rsvps')
+    source = models.CharField(max_length=20, blank=True, null=True)
+
+    @property
+    def name(self):
+        return self.gplus_name
+
+    @property
+    def url(self):
+        return 'https://plus.google.com/{0}/about'.format(self.gplus_uid)
+
+    class Meta(object):
+        verbose_name = _("RSVP")
+        verbose_name_plural = _("RSVPs")

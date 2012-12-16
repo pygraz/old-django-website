@@ -2,6 +2,7 @@
 import datetime
 import pytz
 import urlparse
+import collections
 
 from django.views import generic as generic_views
 from django.http import Http404, HttpResponseRedirect
@@ -12,6 +13,9 @@ from django.shortcuts import get_object_or_404
 from . import models
 from . import forms
 from .decorators import allow_only_staff_or_author_during_submission
+
+
+RSVPCollection = collections.namedtuple('RSVPCollection', 'coming maybe not_coming')
 
 
 class NextRedirectMixin(object):
@@ -64,6 +68,18 @@ class DetailView(generic_views.DetailView):
             if not len(result):
                 raise Http404
             return result[0]
+
+    def get_context_data(self, *args, **kwargs):
+        data = super(DetailView, self).get_context_data(*args, **kwargs)
+        data['rsvps'] = self._get_rsvps()
+        return data
+
+    def _get_rsvps(self):
+        result = RSVPCollection([], [], [])
+        for rsvp in self.object.rsvps.all():
+            if rsvp.status:
+                getattr(result, rsvp.status).append(rsvp)
+        return result
 
 
 class SubmitSession(NextRedirectMixin, generic_views.CreateView):
