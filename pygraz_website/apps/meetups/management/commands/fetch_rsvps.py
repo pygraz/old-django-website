@@ -19,7 +19,8 @@ class Command(BaseCommand):
             if meetup.gplus_id:
                 LOG.debug("Fetching Google+ data for meetup ", meetup)
                 # Fetch the data
-                data = subprocess.check_output(['casperjs', 'tools/fetch_rsvps.js', meetup.gplus_id])
+                data = subprocess.check_output('casperjs tools/fetch_rsvps.js ' + meetup.gplus_id,
+                    shell=True)
                 rsvp_map = {}
                 for rsvp in rsvps:
                     rsvp_map[rsvp.gplus_uid] = rsvp
