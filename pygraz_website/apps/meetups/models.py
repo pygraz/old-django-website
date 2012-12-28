@@ -14,16 +14,18 @@ RSVP_STATUS_CHOICES = (
 
 
 class MeetupManager(models.Manager):
-    def get_past_meetups(self):
+    def get_past_meetups(self, now=None):
         """
         Adds a filter for meetups that started in the past.
         """
-        now = timezone.now()
-        return self.get_query_set().filter(start_date__lt=now)
+        if now is None:
+            now = timezone.now()
+        return self.get_query_set().filter(start_date__lte=now)
 
-    def get_future_meetups(self):
-        now = timezone.now()
-        return self.get_query_set().filter(start_date__gte=now)
+    def get_future_meetups(self, now=None):
+        if now is None:
+            now = timezone.now()
+        return self.get_query_set().filter(start_date__gt=now)
 
 
 class SessionManager(models.Manager):
@@ -74,8 +76,9 @@ class Meetup(models.Model):
                 'pk': self.pk
             }))
 
-    def is_in_future(self):
-        now = timezone.now()
+    def is_in_future(self, now=None):
+        if now is None:
+            now = timezone.now()
         return self.start_date > now
 
     class Meta(object):
