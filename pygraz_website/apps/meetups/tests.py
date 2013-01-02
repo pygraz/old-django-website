@@ -56,6 +56,34 @@ class MeetupModelTests(unittest.TestCase):
         for m in models.Meetup.objects.get_past_meetups(now=now):
             self.assertFalse(m.is_in_future(now))
 
+    def test_set_attendee_count(self):
+        """
+        It should be possible to set a number of attendees of a meetup outside
+        of who responded to the RSVP.
+        """
+        models.Meetup(start_date=timezone.now(), attendee_count=10).full_clean()
+        m = models.Meetup(start_date=timezone.now())
+        m.attendee_count = 10
+
+    def test_valid_attendee_count(self):
+        """
+        A valid number of attendees is a positive integer, 0 or None
+        """
+        t = timezone.now()
+        meetup = models.Meetup(start_date=t)
+        meetup.full_clean()
+        meetup.attendee_count = None
+        meetup.full_clean()
+        meetup.attendee_count = 1
+        meetup.full_clean()
+        meetup.attendee_count = 10
+        meetup.full_clean()
+        meetup.attendee_count = 0
+        meetup.full_clean()
+        with self.assertRaises(ValidationError):
+            meetup.attendee_count = -1
+            meetup.full_clean()
+
 
 class LocationModelTests(unittest.TestCase):
     def test_required_fields(self):

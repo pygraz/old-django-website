@@ -101,7 +101,7 @@ class RSVPAdmin(admin.ModelAdmin):
 
 
 admin.site.register(models.Meetup,
-    list_display=['start_date', 'location'],
+    list_display=['start_date', 'location', 'attendee_count'],
     list_filter=[MeetupComAvailable, ]
     )
 admin.site.register(models.Session,

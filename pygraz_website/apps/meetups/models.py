@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
+from django.core import validators
 
 
 RSVP_STATUS_CHOICES = (
@@ -56,6 +57,10 @@ class Meetup(models.Model):
     meetupcom_id = models.CharField(blank=True, null=True, max_length=20)
     gplus_id = models.CharField(blank=True, null=True, max_length=50)
     notes = models.TextField(blank=True, null=True)
+    attendee_count = models.IntegerField(null=True, blank=True,
+        validators=[
+                validators.MinValueValidator(0),
+            ])
 
     objects = MeetupManager()
 
