@@ -26,7 +26,7 @@
             <tbody>
                 {% for proposal in session_proposals %}
                 <tr>
-                    <td class="title"><a href="{% url view-session proposal.pk %}">{{ proposal.title }}</a></td></td>
+                    <td class="title"><a href="{% url "view-session" proposal.pk %}">{{ proposal.title }}</a></td></td>
                     <td class="speaker">
                         {% if proposal.speaker %}
                             <span>{{ proposal.get_speaker_name }}</span>
