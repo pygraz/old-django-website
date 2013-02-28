@@ -5,6 +5,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/screen.css" />
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.7.2.min.js"></script>
+
 </head>
 <body class="{% block page_class %}{% endblock %}">
 <nav id="primary-nav"><div class="w">
@@ -17,14 +19,14 @@
     </ul>
     <div id="accountbox" class="{% if user.is_authenticated %}logged-in{% else %}logged-out{% endif %}">
         {% if user.is_authenticated %}
-        <a class="iconb" data-icon="☺" href="{% url userena_profile_edit username=user.username %}">Angemeldet als {{ user.username }}</a>
+        <a class="iconb" data-icon="☺" href="{% url "userena_profile_edit" username=user.username %}">Angemeldet als {{ user.username }}</a>
         <ul class="account-actions">
-            <li><a href="{% url userena_email_change username=user.username %}">E-Mail ändern</a></li>
-            <li><a href="{% url userena_password_change username=user.username %}">Passwort ändern</a></li>
-            <li><a href="{% url userena_signout %}?next={{ request.get_full_path }}">Abmelden</a></li>
+            <li><a href="{% url "userena_email_change" username=user.username %}">E-Mail ändern</a></li>
+            <li><a href="{% url "userena_password_change" username=user.username %}">Passwort ändern</a></li>
+            <li><a href="{% url "userena_signout" %}?next={{ request.get_full_path }}">Abmelden</a></li>
         </ul>
         {% else %}
-        <a href="{% url userena_signin %}?next={{ request.get_full_path }}">Anmelden</a> | <a href="{% url userena_signup %}">Registrieren</a>
+        <a href="{% url "userena_signin" %}?next={{ request.get_full_path }}">Anmelden</a> | <a href="{% url "userena_signup" %}">Registrieren</a>
         {% endif %}
     </div>
 </nav></div>
@@ -55,7 +57,6 @@
     </footer>
 </div>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> 
-<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
 </body>
 </html>
