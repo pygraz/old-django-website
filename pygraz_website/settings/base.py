@@ -197,3 +197,5 @@ DEBUG_TOOLBAR_CONFIG = {
 EMAIL_BACKEND = 'postmark.django_backend.EmailBackend'
 DEFAULT_FROM_EMAIL = 'info@pygraz.org'
 POSTMARK_SENDER = DEFAULT_FROM_EMAIL
+
+MEETUPS_CALENDAR_NAME = 'PyGRAZ-Meetups'

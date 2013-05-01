@@ -12,7 +12,7 @@
 <nav id="primary-nav"><div class="w">
     <ul>
         <li class="{% block nav-start %}{% endblock %}" ><a href="/">Start</a></li>
-        <li class="{% block nav-meetups %}{% endblock %}"><a href="/#past-meetups">Meetups</a></li>
+        <li class="{% block nav-meetups %}{% endblock %}"><a href="/#past-meetups">Meetups</a> (<a href="{% url "ical" %}">iCal</a>)</li>
         <li class=""><a href="http://groups.google.com/group/python-graz/" rel="external">Mailinglist</a></li>
         <li class=""><a href="https://plus.google.com/u/0/b/101185345132127945047/" rel="external">Google+</a></li>
         <li class=""><a href="http://twitter.com/pygraz" rel="external">Twitter</a></li>

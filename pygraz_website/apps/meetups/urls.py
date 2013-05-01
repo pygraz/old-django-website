@@ -4,7 +4,8 @@ from django.contrib.auth.decorators import login_required
 from . import views
 
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     url('^(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})$',
         views.DetailView.as_view(), name="view-meetup"),
     url('^(?P<pk>\d+)/$',
@@ -17,4 +18,5 @@ urlpatterns = patterns('',
         login_required(views.EditSession.as_view()), name="edit-session"),
     url('^sessions/(?P<pk>\d+)/delete/$',
         login_required(views.DeleteSession.as_view()), name="delete-session"),
+    url('^ical/$', views.ICalendarView.as_view(), name="ical"),
 )

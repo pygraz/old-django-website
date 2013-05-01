@@ -77,11 +77,11 @@ a {
     }
     li {
         float: left;
+        padding: 7px;
+        display: block;
     }
     a {
         color: #FFF;
-        padding: 7px;
-        display: block;
         text-decoration: none;
         font-weight: bold;
     }
@@ -95,6 +95,10 @@ a {
         top: 0;
         width: 250px;
         text-align: right;
+        > a {
+            display: block;
+            padding: 7px;
+        }
         &.logged-out {
             a {
                 display: inline-block;
