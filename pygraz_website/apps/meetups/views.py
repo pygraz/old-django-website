@@ -205,3 +205,4 @@ class ICalendarView(generic_views.View):
         response = HttpResponse(cal.to_ical(), content_type='text/calendar')
         response['Content-Disposition'] = 'attachment;filename=pygraz.ics'
         return response
+
