@@ -3,19 +3,23 @@ import datetime
 import pytz
 import urlparse
 import collections
+import icalendar
 
 from django.views import generic as generic_views
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.utils import timezone
 from django.contrib import messages
+from django.contrib.sites.models import Site
 from django.shortcuts import get_object_or_404
+from django.conf import settings
 
 from . import models
 from . import forms
 from .decorators import allow_only_staff_or_author_during_submission
 
 
-RSVPCollection = collections.namedtuple('RSVPCollection', 'coming maybe not_coming')
+RSVPCollection = collections.namedtuple('RSVPCollection',
+                                        'coming maybe not_coming')
 
 
 class NextRedirectMixin(object):
@@ -51,10 +55,12 @@ class DetailView(generic_views.DetailView):
 
     def get_object(self):
         if 'pk' in self.kwargs:
-            return get_object_or_404(self.model.objects.select_related('location'),
+            return get_object_or_404(
+                self.model.objects.select_related('location'),
                 pk=self.kwargs.get('pk'))
         else:
-            date_start = datetime.datetime(int(self.kwargs.get('year')),
+            date_start = datetime.datetime(
+                int(self.kwargs.get('year')),
                 int(self.kwargs.get('month')),
                 int(self.kwargs.get('day')), 0, 0, 0)
             date_end = date_start + datetime.timedelta(days=1)
@@ -63,7 +69,8 @@ class DetailView(generic_views.DetailView):
             date_end = local_tz.localize(date_end)
             utc_date_start = date_start.astimezone(pytz.utc)
             utc_date_end = date_end.astimezone(pytz.utc)
-            result = self.model.objects.filter(start_date__gte=utc_date_start,
+            result = self.model.objects.filter(
+                start_date__gte=utc_date_start,
                 start_date__lte=utc_date_end).select_related('location')
             if not len(result):
                 raise Http404
@@ -115,7 +122,7 @@ class ViewSession(generic_views.DetailView):
         data.update({
             'can_delete': can_delete,
             'can_edit': can_delete,
-            })
+        })
         return data
 
     def get_object(self):
@@ -160,7 +167,7 @@ class DeleteSession(NextRedirectMixin, generic_views.DeleteView):
         data = super(DeleteSession, self).get_context_data(**kwargs)
         data.update({
             'cancel_url': self.get_success_url()
-            })
+        })
         return data
 
     def delete(self, request, *args, **kwargs):
@@ -171,3 +178,31 @@ class DeleteSession(NextRedirectMixin, generic_views.DeleteView):
     @allow_only_staff_or_author_during_submission
     def dispatch(self, request, *args, **kwargs):
         return super(DeleteSession, self).dispatch(request, *args, **kwargs)
+
+
+class ICalendarView(generic_views.View):
+    """
+    This offers a simple ical rendering of all the meetups.
+    """
+    def get_meetup_summary(self, meetup):
+        return "PyGRAZ-Meetup am {0}".format(meetup.start_date.date())
+
+    def get_meetup_description(self, meetup):
+        return """Details: https://{0}{1}""".format(
+            Site.objects.get_current().domain, meetup.get_absolute_url())
+
+    def get(self, request, *args, **kwargs):
+        cal = icalendar.Calendar()
+        cal.add('X-WR-CALNAME', settings.MEETUPS_CALENDAR_NAME)
+        site = Site.objects.get_current()
+        for meetup in models.Meetup.objects.all():
+            evt = icalendar.Event()
+            evt.add('summary', self.get_meetup_summary(meetup))
+            evt.add('description', self.get_meetup_description(meetup))
+            evt.add('dtstart', meetup.start_date)
+            evt['uid'] = '{0}/meetups/{1}'.format(site.domain, meetup.pk)
+            cal.add_component(evt)
+        response = HttpResponse(cal.to_ical(), content_type='text/calendar')
+        response['Content-Disposition'] = 'attachment;filename=pygraz.ics'
+        return response
+

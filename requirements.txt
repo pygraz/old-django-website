@@ -18,3 +18,4 @@ Markdown==2.1.1
 markdown2==1.4.2
 PIL==1.1.7
 raven==1.9.1
+icalendar==3.4
