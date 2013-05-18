@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-28 11:23+0200\n"
+"POT-Creation-Date: 2013-05-18 17:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,48 +35,218 @@ msgstr ""
 msgid "user"
 msgstr ""
 
-#: apps/meetups/admin.py:14 apps/meetups/admin.py:31 apps/meetups/admin.py:68
+#: apps/companies/models.py:11
+msgid "Austria"
+msgstr "Österreich"
+
+#: apps/companies/models.py:16
+msgid "name"
+msgstr "Name"
+
+#: apps/companies/models.py:17
+msgid "website"
+msgstr "Webseite"
+
+#: apps/companies/models.py:18
+msgid "contact e-mail"
+msgstr "E-Mail-Kontakt"
+
+#: apps/companies/models.py:19
+msgid "description"
+msgstr "Beschreibung"
+
+#: apps/companies/models.py:21
+msgid "address line"
+msgstr "Adresse"
+
+#: apps/companies/models.py:22
+msgid "postal code"
+msgstr "Postleitzahl"
+
+#: apps/companies/models.py:23
+msgid "city"
+msgstr "Stadt"
+
+#: apps/companies/models.py:24
+msgid "country"
+msgstr "Land"
+
+#: apps/companies/models.py:27
+msgid "approved"
+msgstr "Verifziert"
+
+#: apps/companies/models.py:32
+msgid "Published at"
+msgstr "Erstellt am"
+
+#: apps/companies/models.py:38
+msgid "company"
+msgstr "Firma"
+
+#: apps/companies/models.py:39
+msgid "companies"
+msgstr "Firmen"
+
+#: apps/companies/models.py:45
+msgid "My companies"
+msgstr "Meine Firmen"
+
+#: apps/meetups/admin.py:17 apps/meetups/admin.py:37 apps/meetups/admin.py:81
 msgid "Yes"
-msgstr ""
+msgstr "Ja"
 
-#: apps/meetups/admin.py:15 apps/meetups/admin.py:32 apps/meetups/admin.py:69
+#: apps/meetups/admin.py:18 apps/meetups/admin.py:38 apps/meetups/admin.py:82
 msgid "No"
-msgstr ""
+msgstr "Nein"
 
-#: apps/meetups/admin.py:47
+#: apps/meetups/admin.py:57
 msgid "speaker type"
 msgstr ""
 
-#: apps/meetups/admin.py:51
+#: apps/meetups/admin.py:61
 msgid "Anonymous"
 msgstr ""
 
-#: apps/meetups/admin.py:52
+#: apps/meetups/admin.py:62
 msgid "Registered"
-msgstr ""
+msgstr "Angemeldet"
 
-#: apps/meetups/admin.py:64
+#: apps/meetups/admin.py:77
 msgid "meetup.com available"
-msgstr ""
+msgstr "Meetup.com verfügbar"
 
-#: apps/meetups/models.py:19
+#: apps/meetups/models.py:13
+msgid "Not coming"
+msgstr "Kommt nicht"
+
+#: apps/meetups/models.py:14
+msgid "Coming"
+msgstr "Kommt"
+
+#: apps/meetups/models.py:15
+msgid "Maybe"
+msgstr "Vielleicht"
+
+#: apps/meetups/models.py:52
 msgid "location"
-msgstr ""
+msgstr "Ort"
 
-#: apps/meetups/models.py:20
+#: apps/meetups/models.py:53
 msgid "locations"
+msgstr "Orte"
+
+#: apps/meetups/models.py:158
+msgid "Status"
 msgstr ""
 
-#: templates/userena/signup_complete.html:13
+#: apps/meetups/models.py:160
+msgid "Google+ Username"
+msgstr "Google+-Name"
+
+#: apps/meetups/models.py:162
+msgid "Google+ User ID"
+msgstr "Google+-BenutzerID"
+
+#: apps/meetups/models.py:164
+msgid "Meetup"
+msgstr ""
+
+#: apps/meetups/models.py:177
+msgid "RSVP"
+msgstr ""
+
+#: apps/meetups/models.py:178
+msgid "RSVPs"
+msgstr ""
+
+#: templates/userena/emails/activation_email_message.txt:2
+#: templates/userena/emails/confirmation_email_message_new.txt:2
+#: templates/userena/emails/confirmation_email_message_old.txt:2
 #, python-format
-msgid "We will store your signup information for %(userena_activation_days)s days on our server. "
-msgstr "Ihre Registrierungsinformationen werden für %(userena_activation_days)s Tag(e) bei uns gespeichert."
+msgid "Hallo %(username)s,"
+msgstr ""
 
-msgid "You have been signed out."
-msgstr "Sie wurden abgemeldet."
+#: templates/userena/emails/activation_email_message.txt:4
+#, python-format
+msgid "Danke, dass du dich auf %(site)s angemeldet hast."
+msgstr ""
 
-msgid "You have been sent an e-mail with an activation link to the supplied email."
-msgstr "Sie erhalten umgehend eine E-Mail, mit dem Sie Ihren neuen Account aktivieren können."
+#: templates/userena/emails/activation_email_message.txt:6
+msgid "Um deinen Account zu aktivieren, klicke bitte untenstehenden Link:"
+msgstr ""
 
-msgid "Signup almost done!"
-msgstr "Registrierung fast abgeschlossen"
+#: templates/userena/emails/activation_email_message.txt:10
+msgid "Vielen Dank!"
+msgstr ""
+
+#: templates/userena/emails/activation_email_subject.txt:2
+#, python-format
+msgid "Deine Anmeldung bei %(site)s."
+msgstr ""
+
+#: templates/userena/emails/confirmation_email_message_new.txt:4
+#: templates/userena/emails/confirmation_email_message_old.txt:4
+#, python-format
+msgid "Du möchtest deine E-Mail-Adresse auf %(site)s ändern?"
+msgstr ""
+
+#: templates/userena/emails/confirmation_email_message_new.txt:7
+msgid ""
+"Klicke bitte untenstehenden Link, um deine neue E-Mail-Adresse zu bestätigen:"
+msgstr ""
+
+#: templates/userena/emails/confirmation_email_message_old.txt:6
+#, python-format
+msgid ""
+"Eine E-Mail mit einem Bestätigungslink wurden an %(new_email)s gesandt. "
+"Bitte klicke den Link in dieser E-Mail, um deine neue E-Mail-Adresse zu "
+"aktivieren."
+msgstr ""
+
+#: templates/userena/emails/confirmation_email_subject_new.txt:2
+#, python-format
+msgid "E-Mail-Verifikation für %(site)s."
+msgstr ""
+
+#: templates/userena/emails/confirmation_email_subject_old.txt:2
+#, python-format
+msgid "Möchtest du deine E-Mail-Adresse auf %(site)s ändern?"
+msgstr ""
+
+#: templates/userena/emails/password_reset_message.txt:2
+#, python-format
+msgid ""
+"Du hast diese E-Mail bekommen, weil du den \"Passwort ändern\"-Prozess auf "
+"%(site_name)s angestoßen hast."
+msgstr ""
+
+#: templates/userena/emails/password_reset_message.txt:4
+msgid "Bitte gehe auf folgende Seite und trage ein neues Passwort ein:"
+msgstr ""
+
+#: templates/userena/emails/password_reset_message.txt:9
+#, python-format
+msgid ""
+"\n"
+"Dein Benutzername: %(username)s\n"
+msgstr ""
+
+#~ msgid ""
+#~ "We will store your signup information for %(userena_activation_days)s "
+#~ "days on our server. "
+#~ msgstr ""
+#~ "Ihre Registrierungsinformationen werden für %(userena_activation_days)s "
+#~ "Tag(e) bei uns gespeichert."
+
+#~ msgid "You have been signed out."
+#~ msgstr "Sie wurden abgemeldet."
+
+#~ msgid ""
+#~ "You have been sent an e-mail with an activation link to the supplied "
+#~ "email."
+#~ msgstr ""
+#~ "Sie erhalten umgehend eine E-Mail, mit dem Sie Ihren neuen Account "
+#~ "aktivieren können."
+
+#~ msgid "Signup almost done!"
+#~ msgstr "Registrierung fast abgeschlossen"

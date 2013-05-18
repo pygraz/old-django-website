@@ -32,6 +32,8 @@ def prepare_package():
     with lcd('pygraz_website/static'):
         local('rm -rf css/*.css')
         local('compass compile -s compact')
+    with lcd('pygraz_website'):
+        local('django-admin.py compilemessages')
     local('rm -rf production.zip')
     local('zip -x@production-exclude.lst -r production.zip *')
     with lcd('pygraz_website/static/css'):
