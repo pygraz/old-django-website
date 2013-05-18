@@ -6,6 +6,8 @@ from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
 from django.core import validators
 
+from pygraz_website.apps.accounts import contents
+
 
 RSVP_STATUS_CHOICES = (
     ('not_coming', _("Not coming")),
@@ -132,6 +134,16 @@ class Session(models.Model):
     class Meta(object):
         verbose_name = 'Session'
         verbose_name_plural = 'Sessions'
+
+
+class SessionContentProxy(contents.BaseProxy):
+    model_class = Session
+    label = "Meine Sessions"
+
+    def get_queryset(self):
+        return Session.objects.filter(speaker=self.request.user)
+
+contents.register(SessionContentProxy)
 
 
 class RSVP(models.Model):

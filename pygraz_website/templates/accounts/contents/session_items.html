@@ -1,0 +1,5 @@
+<ul>
+{% for item in type.items %}
+    <li><a href="{% url 'view-session' pk=item.pk %}">{{ item.title }}</a></li>
+{% endfor %}
+</ul>

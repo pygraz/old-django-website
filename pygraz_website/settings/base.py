@@ -18,7 +18,7 @@ ROOT = dirname(dirname(abspath(__file__)))
 INTERNAL_IPS = ['127.0.0.1']
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Horst Gutmann', 'zerok@zerokspot.com'),
 )
 
 MANAGERS = ADMINS
@@ -59,6 +59,8 @@ USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
+
+LOCALE_PATHS = (join(ROOT, 'locale'),)
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
@@ -142,6 +144,7 @@ INSTALLED_APPS = [
     'pygraz_website.apps.core',
     'pygraz_website.apps.meetups',
     'pygraz_website.apps.accounts',
+    'pygraz_website.apps.companies',
 ]
 
 # A sample logging configuration. The only tangible logging
@@ -197,5 +200,6 @@ DEBUG_TOOLBAR_CONFIG = {
 EMAIL_BACKEND = 'postmark.django_backend.EmailBackend'
 DEFAULT_FROM_EMAIL = 'info@pygraz.org'
 POSTMARK_SENDER = DEFAULT_FROM_EMAIL
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 MEETUPS_CALENDAR_NAME = 'PyGRAZ-Meetups'

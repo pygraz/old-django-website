@@ -32,6 +32,8 @@ def prepare_package():
     with lcd('pygraz_website/static'):
         local('rm -rf css/*.css')
         local('compass compile -s compact')
+    with lcd('pygraz_website'):
+        local('django-admin.py compilemessages')
     local('rm -rf production.zip')
     local('zip -x@production-exclude.lst -r production.zip *')
     with lcd('pygraz_website/static/css'):
@@ -49,7 +51,7 @@ def unpack_package():
 
 def stop_server():
     with prefix(env_prefix):
-        run('supervisorctl -c {0}/supervisord.conf stop pygraz'.format(env.cwd))
+        run('circusctl --endpoint {0} stop django'.format(env.circus_endpoint))
 
 
 def switch_installation():
@@ -74,4 +76,4 @@ def collect_static_files():
 
 def start_server():
     with prefix(env_prefix):
-        run('supervisorctl -c {0}/supervisord.conf start pygraz'.format(env.cwd))
+        run('circusctl --endpoint {0} start django'.format(env.circus_endpoint))

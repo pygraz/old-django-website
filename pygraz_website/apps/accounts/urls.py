@@ -1,8 +1,11 @@
 from django.conf.urls import url, patterns
+from django.contrib.auth.decorators import login_required
 
 from userena import views as userena_views
 
 from . import forms
+from . import views
+
 
 urlpatterns = patterns('',
     url(r'^signin/$',
@@ -25,4 +28,7 @@ urlpatterns = patterns('',
         userena_views.profile_edit,
         {'edit_profile_form': forms.EditProfileForm},
         name='userena_profile_edit'),
+    url(r'^(?P<username>[\.\w]+)/contents/$',
+        login_required(views.MyContentsView.as_view()),
+        name='my_contents'),
 )
