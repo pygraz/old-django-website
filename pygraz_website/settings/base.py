@@ -18,7 +18,7 @@ ROOT = dirname(dirname(abspath(__file__)))
 INTERNAL_IPS = ['127.0.0.1']
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+    ('Horst Gutmann', 'zerok@zerokspot.com'),
 )
 
 MANAGERS = ADMINS
@@ -142,6 +142,7 @@ INSTALLED_APPS = [
     'pygraz_website.apps.core',
     'pygraz_website.apps.meetups',
     'pygraz_website.apps.accounts',
+    'pygraz_website.apps.companies',
 ]
 
 # A sample logging configuration. The only tangible logging

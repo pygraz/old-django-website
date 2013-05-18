@@ -12,5 +12,6 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('pygraz_website.apps.accounts.urls')),
     url(r'^accounts/', include('userena.urls')),
     url(r'^meetups/', include('pygraz_website.apps.meetups.urls')),
+    url(r'^companies/', include('pygraz_website.apps.companies.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )

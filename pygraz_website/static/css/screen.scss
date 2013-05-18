@@ -299,6 +299,13 @@ body.frontpage {
     }
 }
 
+#info {
+    background: #EFEFEF;
+    padding: 10px;
+    @include border-radius(5px);
+    margin-bottom: 30px;
+}
+
 body.meetup-details {
     h1 .time {
         font-size: 22px;
@@ -323,29 +330,33 @@ body.meetup-details {
 article.session-details {
     position: relative;
     .actions {
-        list-style: none;
         position: absolute;
         top: 0;
         right: 0;
         padding: 0;
         margin: 0;
-        li {
-            padding: 0;
-            @include border-radius(3px);
-            background: #EFEFEF;
-            &:first-child {
-                margin-bottom: 2px;
-            }
+    }
+}
+
+.actions {
+    list-style: none;
+    float: right;
+    li {
+        padding: 0;
+        @include border-radius(3px);
+        background: #EFEFEF;
+        &:first-child {
+            margin-bottom: 2px;
         }
-        a {
-            padding: 5px 8px;
-            display: block;
-            text-decoration: none;
-            &:hover {
-                color: #FFF;
-                @include border-radius(3px);
-                background: $blue;
-            }
+    }
+    a {
+        padding: 5px 8px;
+        display: block;
+        text-decoration: none;
+        &:hover {
+            color: #FFF;
+            @include border-radius(3px);
+            background: $blue;
         }
     }
 }
@@ -486,4 +497,44 @@ article.session-details {
 .fineprint {
     font-size: 75%;
     clear: both;
+}
+
+body.company-details {
+    #map {
+        height: 300px;
+    }
+    .meta {
+        float: right;
+        width: 300px;
+        background: #EFEFEF;
+        padding: 10px;
+        margin: 16px 0 20px 20px;
+        dl {
+            margin: 0;
+        }
+        dt {
+            font-weight: bold;
+        }
+    }
+}
+
+body.company-submission {
+    fieldset {
+        float: left;
+        width: 46%;
+        margin: 0 0 10px 0;
+        border: 1px solid #CCC;
+    }
+    fieldset:nth-child(3) {
+        float: right;
+    }
+    .buttonHolder {
+        clear: both;
+    }
+}
+
+.contenttype {
+    width: 31%;
+    float: left;
+    margin: 0 1% 1% 20px;
 }
