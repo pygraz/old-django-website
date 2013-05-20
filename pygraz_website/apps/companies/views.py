@@ -1,6 +1,8 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.http import Http404
 
+from guardian.shortcuts import assign_perm
+
 from . import models
 from . import forms
 from . import emails
@@ -26,7 +28,7 @@ class CompanyDetailsView(DetailView):
         # Make sure that the company is approved or editable by the current
         # user.
         data['approved'] = self.object.approved
-        data['is_editor'] = self.object in self.request.user.companies.all() if self.request.user.is_authenticated() else False
+        data['is_editor'] = self.request.user.has_perm('change_company', self.object)
         if not self.object.approved and not data['is_editor']:
             raise Http404("Company not found")
         return data
@@ -43,6 +45,7 @@ class SubmitCompanyView(CreateView):
     def form_valid(self, form):
         result = super(SubmitCompanyView, self).form_valid(form)
         self.object.editors.add(self.request.user)
+        assign_perm('change_company', self.request.user, self.object)
         emails.notify_admins_for_approval(self.object)
         return result
 
@@ -56,6 +59,6 @@ class UpdateCompanyView(UpdateView):
 
     def get_object(self, **kwargs):
         obj = super(UpdateCompanyView, self).get_object(**kwargs)
-        if self.request.user not in obj.editors.all():
+        if not self.request.user.has_perm('change_company', obj):
             raise Http404("Company not found")
         return obj
