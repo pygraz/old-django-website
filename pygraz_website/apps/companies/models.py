@@ -5,6 +5,7 @@ from django.core.urlresolvers import reverse
 from django.conf import settings
 
 from pygraz_website.apps.accounts import contents
+import guardian.shortcuts
 
 
 COUNTRY_CHOICES = (
@@ -34,6 +35,9 @@ class Company(models.Model):
     def get_absolute_url(self):
         return reverse('company-details', kwargs={'pk': self.pk})
 
+    def __unicode__(self):
+        return self.name
+
     class Meta(object):
         verbose_name = _("company")
         verbose_name_plural = _("companies")
@@ -45,6 +49,6 @@ class CompanyContentProxy(contents.BaseProxy):
     label = _("My companies")
 
     def get_queryset(self):
-        return self.request.user.companies.all()
+        return guardian.shortcuts.get_objects_for_user(self.request.user, 'companies.change_company')
 
 contents.register(CompanyContentProxy)
