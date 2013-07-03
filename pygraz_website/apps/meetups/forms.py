@@ -12,7 +12,7 @@ from . import models
 class AnonymousSessionSubmissionForm(forms.ModelForm):
     speaker_name = forms.CharField(required=True, label="Dein Name")
     speaker_email = forms.EmailField(required=True, label="Deine E-Mail-Adresse")
-    captcha = ReCaptchaField(attrs={'theme': 'white'})
+    captcha = ReCaptchaField(attrs={'theme': 'white'}, use_ssl=True)
 
     class Meta(object):
         model = models.Session
