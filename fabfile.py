@@ -61,7 +61,7 @@ def switch_installation():
 
 def install_environment():
     with prefix('source env/bin/activate'):
-        run('pip install -r app/requirements.txt')
+        run('pip install -r app/requirements/{0}.txt'.format(env.environment))
 
 
 def update_db():
