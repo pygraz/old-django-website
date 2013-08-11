@@ -20,6 +20,7 @@ class AnonymousSessionSubmissionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(AnonymousSessionSubmissionForm, self).__init__(*args, **kwargs)
+        del self.fields['abstract'].widget.attrs['cols']
         self.helper = FormHelper()
         layout = Layout(
             Field('title'), Field('abstract'),

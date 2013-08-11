@@ -9,6 +9,7 @@
 
 </head>
 <body class="{% block page_class %}{% endblock %}">
+<a href="#primary-nav" id="nav-helper">Menü</a>
 <nav id="primary-nav"><div class="w">
     <ul>
         <li class="{% block nav-start %}{% endblock %}" ><a href="/">Start</a></li>
@@ -31,7 +32,7 @@
         <a href="{% url "userena_signin" %}?next={{ request.get_full_path }}">Anmelden</a> | <a href="{% url "userena_signup" %}">Registrieren</a>
         {% endif %}
     </div>
-</nav></div>
+</div></nav>
 <div class="container">
     <header>
         <a id="logo" href="/"><img src="/static/imgs/logo.png" style="width: 276px; height: 80px" alt="PyGRAZ" /></a>

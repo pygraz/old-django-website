@@ -16,7 +16,6 @@ html {
     //background-color: #EEE;
 }
 body {
-    min-width: 400px;
     font-family: 'PTSans', Arial;
     margin: 0;
     color: $baseColor;
@@ -26,7 +25,6 @@ body {
 
 body > .container {
     max-width: 920px;
-    min-width: 360px;
     margin: auto;
     //@include border-radius(2px);
     //@include box-shadow(#cecece 0 3px 3px);
@@ -49,6 +47,16 @@ a {
 
 .iconb:before {
     padding-right: 5px;
+}
+
+#nav-helper {
+    display: none;
+    text-align: center;
+    font-weight: bold;
+    background: #333;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
 }
 
 #primary-nav {
@@ -422,10 +430,12 @@ article.session-details {
     form {
         textarea {
             max-width: 400px;
+            min-width: 90%;
             width: auto;
         }
         input[type="text"], input[type="email"], input[type="password"] {
             max-width: 250px;
+            min-width: 90%;
         }
     }
     article.session-details .actions {
@@ -538,4 +548,44 @@ body.company-submission {
     width: 31%;
     float: left;
     margin: 0 1% 1% 20px;
+}
+
+// This redesigns the menu for smaller screens and puts it at the bottom of the
+// output on browsers that support flexbox.
+@media screen and (max-width: 480px) {
+    body {
+        display: -webkit-box;
+        display: -webkit-flex;
+        -webkit-box-orient: vertical;
+        -webkit-flex-direction: column;
+        display: flex;
+        flex-direction: column;
+    }
+    #nav-helper {
+        display: block;
+    }
+    #primary-nav {
+        -webkit-box-ordinal-group: 2;
+        -webkit-order: 2;
+        order: 2;
+        li {
+            border-top: 1px dotted #FFF;
+            float: none;
+        }
+        > .w > ul > li:first-child {
+            border-top: none;
+        }
+        #accountbox {
+            margin-top: 20px;
+        }
+        #accountbox ul {
+            display: block;
+        }
+    }
+    body > .container {
+        -webkit-box-ordinal-group: 1;
+        -webkit-order: 1;
+        order: 1;
+        padding-top: 20px;
+    }
 }
