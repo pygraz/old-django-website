@@ -1,3 +1,4 @@
+/*global $, google, alert, console*/
 $(function() {
     if (typeof google === 'undefined') {
         console.log("Google Maps not available");
@@ -10,11 +11,11 @@ $(function() {
         var address = $('.address', meetup);
         if (address.length) {
             var addrStr = address.text();
-            var mapContainer = $('<div>').addClass("map").css({'width': '285px', 'height': '250px'});
+            var mapContainer = $('<div>').addClass("map").css({'min-width': '240px', 'min-height': '240px'});
             mapContainer.insertAfter(address);
 
             geocoder.geocode({'address': addrStr}, function(results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
+                if (status === google.maps.GeocoderStatus.OK) {
                     var mapOpts = {
                         center: results[0].geometry.location,
                         zoom: 14,

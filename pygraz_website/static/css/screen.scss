@@ -134,7 +134,8 @@ header {
 }
 
 #mission {
-    width: 500px;
+    min-width: 200px;
+    max-width: 575px;
     float: right;
     line-height: 1.3em;
     padding: 10px;
@@ -246,12 +247,15 @@ body.frontpage {
         }
     }
     #sessions-and-notes, #location-info, .meetupcom {
-        padding: 10px 20px;
+        padding: 2%;
+    }
+    #sessions-and-notes {
+        padding-right: 0;
     }
     #sessions-and-notes {
         @include pie-clearfix;
         float: left;
-        width: 550px;
+        max-width: 59%;
     }
     .session {
         margin-top: 10px;
@@ -261,23 +265,26 @@ body.frontpage {
     }
     #location-info, .meetupcom {
         float: right;
-        width: 285px;
+        max-width: 35%;
+        min-width: 250px;
         background: none;
         clear: right;
     }
     #past-meetups, #session-proposals {
         margin-top: 2em;
-        width: 48%;
         padding: 10px;
     }
     #past-meetups {
         float: right;
-        width: 35%;
+        max-width: 35%;
+        min-width: 250px;
         @include background-image(linear-gradient(lighten($blue, 55), #FFF));
         @include border-radius(5px 5px 0 0);
     }
     #session-proposals {
         float: left;
+        max-width: 60%;
+        // min-width: 380px;
     }
 }
 
@@ -321,16 +328,17 @@ body.meetup-details {
     }
     #sessions-and-notes {
         float: left;
-        width: 60%;
+        max-width: 60%;
     }
     .meetupcom, #location-info {
         float: right;
-        width: 31%;
+        max-width: 31%;
         padding: 0px 2% 10px 2%;
         clear: right;
     }
     #location-info {
         background: lighten($blue, 40);
+        min-width: 250px;
         @include background-image(linear-gradient(lighten($blue, 50), #FFF));
         @include border-radius(5px 5px 0 0);
     }
@@ -402,12 +410,18 @@ article.session-details {
     padding-top: 20px;
 }
 
-@media all and (max-width: 850px) {
+@media all and (max-width: 950px) {
+    #mission {
+        max-width: 50%;
+    }
+}
+
+@media all and (max-width: 765px) {
     body > .container {
         padding: 0 10px 10px 10px;
     }
     #mission {
-        width: 98%;
+        max-width: 98%;
         padding: 10px 1% 0px 1%;
         float: none;
         clear: both;
@@ -415,21 +429,19 @@ article.session-details {
     body.frontpage {
         #session-proposals, #past-meetups {
             float: none;
-            width: 100%;
+            max-width: 100%;
             padding: 0;
             h1 {
                 margin: 5px 0;
             }
         }
         #past-meetups {
-            width: 96%;
             padding: 2%;
-
         }
     }
     form {
         textarea {
-            max-width: 400px;
+            max-width: 90%;
             min-width: 90%;
             width: auto;
         }
@@ -443,12 +455,15 @@ article.session-details {
     }
     body.frontpage, body.meetup-details {
         #sessions-and-notes, #location-info, .meetupcom {
-            width: 96%;
+            max-width: 96%;
             padding: 5px 2%;
             float: none;
             h1 {
                 margin: 5px 0;
             }
+        }
+        #location-info {
+            min-width: 250px;
         }
     }
     #primary-nav {
