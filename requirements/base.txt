@@ -13,5 +13,5 @@ django-recaptcha==0.0.4
 python-postmark==0.3.1
 Markdown==2.4.0
 Pillow==2.4.0
-raven==1.9.1
+raven==4.2.1
 icalendar==3.4
