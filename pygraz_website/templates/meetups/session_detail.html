@@ -1,5 +1,5 @@
 {% extends "meetups/base.html" %}
-{% load markup %}
+{% load markdown_tags %}
 {% block page_class %}session-details{% endblock %}
 {% block title %}{% if session.meetup %}Session{% else %}Session-Vorschlag{% endif %}: {{ session.title }} « {% endblock %}
 {% block body %}

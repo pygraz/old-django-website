@@ -5,8 +5,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width">
     <link rel="stylesheet" href="{{ STATIC_URL }}css/screen.css" />
-    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.7.2.min.js"></script>
-
 </head>
 <body class="{% block page_class %}{% endblock %}">
 <a href="#primary-nav" id="nav-helper">Menü</a>
@@ -60,6 +58,7 @@
     </footer>
 </div>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script> 
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.7.2.min.js"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/main.js"></script>
 {% block tail %}{% endblock %}
 </body>
