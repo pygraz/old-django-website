@@ -15,6 +15,7 @@ from django.conf import settings
 
 from . import models
 from . import forms
+from . import emails
 from .decorators import allow_only_staff_or_author_during_submission
 
 
@@ -103,6 +104,7 @@ class SubmitSession(NextRedirectMixin, generic_views.CreateView):
         if self.request.user.is_authenticated():
             session.speaker = self.request.user
         session.save()
+        emails.notify_admins_for_new_session(session)
         messages.success(self.request, "Session erstellt.")
         return HttpResponseRedirect(self.get_success_url())
 
