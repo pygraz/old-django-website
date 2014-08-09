@@ -57,6 +57,15 @@ form {
             font-size: 13px;
         }
     }
+    label.radio {
+        margin-bottom: 5px;
+
+        span {
+            display: block;
+            font-size: 80%;
+            padding-left: 18px;
+        }
+    }
 }
 
 .btn {

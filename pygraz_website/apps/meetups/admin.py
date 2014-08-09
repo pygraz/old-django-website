@@ -100,16 +100,21 @@ class RSVPAdmin(admin.ModelAdmin):
         return obj.gplus_name
 
 
+class SessionTypeAdmin(admin.ModelAdmin):
+    pass
+
+
 admin.site.register(models.Meetup,
     list_display=['start_date', 'location', 'attendee_count'],
     list_filter=[MeetupComAvailable, ]
     )
 admin.site.register(models.Session,
-    list_display=['title', 'meetup', 'speaker', 'speaker_name'],
-    list_filter=[AssignedMeetupFilter, SessionBySpeakerType, SessionWithSlidesFilter, ]
+    list_display=['title', 'meetup', 'type', 'speaker', 'speaker_name'],
+    list_filter=['type', AssignedMeetupFilter, SessionBySpeakerType, SessionWithSlidesFilter, ]
     )
 admin.site.register(models.Location,
     list_display=['name'],
     )
 
 admin.site.register(models.RSVP, RSVPAdmin)
+admin.site.register(models.SessionType, SessionTypeAdmin)

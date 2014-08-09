@@ -106,6 +106,8 @@ class Session(models.Model):
         blank=True, null=True)
     slides_url = models.URLField("Folien-URL", blank=True, null=True)
     notes = models.TextField("Notizen", blank=True, null=True)
+    type = models.ForeignKey('SessionType', verbose_name="Vortragsart",
+                             blank=True, null=True, on_delete=models.SET_NULL)
 
     objects = SessionManager()
 
@@ -134,6 +136,18 @@ class Session(models.Model):
     class Meta(object):
         verbose_name = 'Session'
         verbose_name_plural = 'Sessions'
+
+
+class SessionType(models.Model):
+    name = models.CharField("Name", max_length=30, unique=True)
+    description = models.TextField("Beschreibung", blank=True, null=True)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta(object):
+        verbose_name = 'Session type'
+        verbose_name_plural = 'Session types'
 
 
 class SessionContentProxy(contents.BaseProxy):
