@@ -8,10 +8,10 @@
     <p class="meta">von {{ session.get_speaker_name }}</p>
     <ul class="actions">
         {% if can_edit %}
-        <li><a class="iconb" data-icon="✍" href="edit/">Editieren</a></li>
+        <li><a class="iconb" data-icon="✍" href="edit/" rel="nofollow">Editieren</a></li>
         {% endif %}
         {% if can_delete %}
-        <li><a class="iconb" data-icon="♽" href="delete/">Löschen</a></li>
+        <li><a class="iconb" data-icon="♽" href="delete/" rel="nofollow">Löschen</a></li>
         {% endif %}
     </ul>
     {% if not session.meetup %}

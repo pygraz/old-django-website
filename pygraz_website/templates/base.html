@@ -27,7 +27,7 @@
             <li><a href="{% url "userena_signout" %}?next={{ request.get_full_path }}">Abmelden</a></li>
         </ul>
         {% else %}
-        <a href="{% url "userena_signin" %}?next={{ request.get_full_path }}">Anmelden</a> | <a href="{% url "userena_signup" %}">Registrieren</a>
+        <a href="{% url "userena_signin" %}?next={{ request.get_full_path }}" rel="nofollow">Anmelden</a> | <a href="{% url "userena_signup" %}" rel="nofollow">Registrieren</a>
         {% endif %}
     </div>
 </div></nav>
