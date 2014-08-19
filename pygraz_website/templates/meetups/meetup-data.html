@@ -1,6 +1,9 @@
 {% load markdown_tags %}
 <div class="meetup-data">
     <div id="sessions-and-notes">
+        {% if meetup.description %}
+            <section id="description">{{ meetup.description|markdown }}</section>
+        {% endif %}
         <section id="planned-sessions">
             <h1>{% if meetup.is_in_future %}Geplante {% endif %}Sessions</h1>
             {% with meetup.sessions.all as sessions %}

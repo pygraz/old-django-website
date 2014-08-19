@@ -58,6 +58,7 @@ class Meetup(models.Model):
     location = models.ForeignKey(Location, blank=True, null=True)
     meetupcom_id = models.CharField(blank=True, null=True, max_length=20)
     gplus_id = models.CharField(blank=True, null=True, max_length=50)
+    description = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
     attendee_count = models.IntegerField(null=True, blank=True,
         validators=[
