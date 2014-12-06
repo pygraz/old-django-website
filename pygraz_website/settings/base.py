@@ -131,6 +131,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.admin',
 
+    'easy_thumbnails',
     'south',
     'crispy_forms',
     'captcha',
