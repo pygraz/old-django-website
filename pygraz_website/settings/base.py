@@ -114,13 +114,15 @@ ROOT_URLCONF = 'pygraz_website.urls'
 WSGI_APPLICATION = 'pygraz_website.wsgi.application'
 
 TEMPLATE_DIRS = (
-    join(ROOT, 'templates')
+    join(ROOT, 'templates'),
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = list(default_settings.TEMPLATE_CONTEXT_PROCESSORS) + [
     'django.core.context_processors.request',
     'pygraz_website.context_processors.disqus',
 ]
+
+TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 INSTALLED_APPS = [
     'django.contrib.auth',
@@ -132,7 +134,6 @@ INSTALLED_APPS = [
     'django.contrib.admin',
 
     'easy_thumbnails',
-    'south',
     'crispy_forms',
     'captcha',
     'userena',
