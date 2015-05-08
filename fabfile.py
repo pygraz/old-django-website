@@ -65,7 +65,8 @@ def install_environment():
 
 def update_db():
     with prefix(env_prefix), cd('app'):
-        run('python manage-{0}.py syncdb --noinput --migrate'.format(env.environment))
+        run('python manage-{0}.py syncdb --noinput'.format(env.environment))
+        run('python manage-{0}.py migrate --noinput'.format(env.environment))
 
 
 def collect_static_files():
