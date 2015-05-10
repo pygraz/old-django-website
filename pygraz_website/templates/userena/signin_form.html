@@ -4,6 +4,6 @@
 {% block title %}Anmelden « {% endblock %}
 {% block content %}
     <h1>Anmelden</h1>
-
     {% crispy form %}
+    <p><a href="{% url "userena_password_reset" %}">Passwort vergessen?</a></p>
 {% endblock %}

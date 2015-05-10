@@ -41,6 +41,27 @@ class PasswordChangeForm(auth_forms.PasswordChangeForm):
             )
 
 
+class PasswordResetForm(auth_forms.PasswordResetForm):
+    def __init__(self, *args, **kwargs):
+        super(PasswordResetForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Field('email', autofocus='autofocus'),
+            ButtonHolder(Submit('save', _("Reset password")))
+            )
+
+
+class SetPasswordForm(auth_forms.SetPasswordForm):
+    def __init__(self, *args, **kwargs):
+        super(SetPasswordForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Field('new_password1', autofocus='autofocus'),
+            Field('new_password2'),
+            ButtonHolder(Submit('save', _("Reset password")))
+            )
+
+
 class EditProfileForm(userena_forms.EditProfileForm):
     def __init__(self, *args, **kwargs):
         super(EditProfileForm, self).__init__(*args, **kwargs)
