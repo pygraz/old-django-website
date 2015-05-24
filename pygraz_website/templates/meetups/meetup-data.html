@@ -39,6 +39,17 @@
         </section>
         {% endif %}
         {% if show_rsvps %}
+        {% if rsvps.coming %}
+        <section class="meetup__rsvps meetup__rsvps__coming">
+            <p>Folgende Personen haben ihr Kommen angekündigt:</p>
+            <ul>
+                {% for rsvp in rsvps.coming %}
+                <li><a href="{{ rsvp.url }}">{{ rsvp.name }}</a> {% if rsvp.source == 'meetupcom' %}(via <a href="{{ meetup.get_meetupcom_url }}">Meetup.com</a>){% endif %}</li>
+                {% endfor %}
+            </ul>
+            <p class="meetup__rsvps__disclaimer">Diese Liste enthält derzeit nur Anmeldungen auf Meetup.com.</p>
+        <section>
+        {% endif %}
         {% if meetup.gplus_id %}
         <section id="gplus">
             <a href="https://plus.google.com/events/{{ meetup.gplus_id }}" title="Event-Seite auf Google+" class="evt-link"><img src="/static/imgs/gplus-64.png" alt="Event auf Google+" /></a>
@@ -50,7 +61,7 @@
     </div>
     {% if meetup.meetupcom_id and meetup.is_in_future %}
     <div class="meetupcom">
-        <p><img src="/static/imgs/meetup-logo.png" alt="" class="logo"/>Falls du vorhast, zu kommen, bitte trage dich auf <a href="http://meetup.com/PyGRAZ/events/{{ meetup.meetupcom_id}}">Meetup.com</a> ein! Es ist nicht zwingend erforderlich, macht aber unsere Arbeit leichter, wenn wir abschätzen können, wie viele Leute in etwa kommen.</p>
+        <p><img src="/static/imgs/meetup-logo.png" alt="" class="logo"/>Falls du vorhast, zu kommen, bitte trage dich auf <a href="{{ meetup.get_meetupcom_url}}">Meetup.com</a> ein! Es ist nicht zwingend erforderlich, macht aber unsere Arbeit leichter, wenn wir abschätzen können, wie viele Leute in etwa kommen.</p>
     </div>
     {% endif %}
     <section id="location-info" {% if not meetup.location %}class="empty"{% endif %}>

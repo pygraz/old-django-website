@@ -93,11 +93,8 @@ class MeetupComAvailable(admin.SimpleListFilter):
 
 
 class RSVPAdmin(admin.ModelAdmin):
-    list_display = ['meetup', 'name', 'status', 'source']
+    list_display = ['meetup', 'remote_username', 'status', 'source']
     list_filter = ['meetup']
-
-    def name(self, obj):
-        return obj.gplus_name
 
 
 class SessionTypeAdmin(admin.ModelAdmin):

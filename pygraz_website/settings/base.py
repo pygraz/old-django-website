@@ -10,6 +10,7 @@
 
 from os.path import dirname, abspath, join
 from django.conf import global_settings as default_settings
+import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -202,5 +203,6 @@ POSTMARK_SENDER = DEFAULT_FROM_EMAIL
 SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
 MEETUPS_CALENDAR_NAME = 'PyGRAZ-Meetups'
+MEETUPCOM_API_KEY = os.environ['DJANGO_MEETUPCOM_API_KEY']
 
 RECAPTCHA_USE_SSL = True
