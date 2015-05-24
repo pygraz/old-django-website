@@ -603,3 +603,15 @@ body.company-submission {
         padding-top: 20px;
     }
 }
+
+.meetup__rsvps__disclaimer {
+    text-align: right;
+    font-size: 80%;
+    font-style: italic;
+}
+
+.meetup__rsvps__coming {
+    padding: 5px 2%;
+    @include border-radius(5px);
+    @include background-image(linear-gradient(lighten($blue, 55), #FFF));
+}

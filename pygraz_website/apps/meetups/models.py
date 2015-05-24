@@ -84,6 +84,9 @@ class Meetup(models.Model):
                 'pk': self.pk
             }))
 
+    def get_meetupcom_url(self):
+        return 'http://www.meetup.com/PyGRAZ/events/{}'.format(self.meetupcom_id)
+
     def is_in_future(self, now=None):
         if now is None:
             now = timezone.now()
@@ -164,7 +167,7 @@ contents.register(SessionContentProxy)
 class RSVP(models.Model):
     """
     A RSVP object represents the status of attendence of a person at a meetup.
-    The source of this information in the current implementation is Google+
+    The source of this information in the current implementation is Meetup.com
     and not linked to a local user account.
 
     The status can be either coming, not coming, maybe or unknown (represented
@@ -172,9 +175,9 @@ class RSVP(models.Model):
     """
     status = models.CharField(_("Status"), choices=RSVP_STATUS_CHOICES,
         null=True, blank=True, max_length=20)
-    gplus_name = models.CharField(_("Google+ Username"), null=True, blank=True,
+    remote_username = models.CharField(_("Username"), null=True, blank=True,
         max_length=100)
-    gplus_uid = models.CharField(_("Google+ User ID"), null=True, blank=True,
+    remote_uid = models.CharField(_("User ID"), null=True, blank=True,
         max_length=100)
     meetup = models.ForeignKey("Meetup", null=False, verbose_name=_("Meetup"),
         related_name='rsvps')
@@ -182,11 +185,11 @@ class RSVP(models.Model):
 
     @property
     def name(self):
-        return self.gplus_name
+        return self.remote_username
 
     @property
     def url(self):
-        return 'https://plus.google.com/{0}/about'.format(self.gplus_uid)
+        return 'http://www.meetup.com/members/{0}/'.format(self.remote_uid)
 
     class Meta(object):
         verbose_name = _("RSVP")
