@@ -1,5 +1,3 @@
-import json
-import subprocess
 import logging
 import requests
 
