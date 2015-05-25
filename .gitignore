@@ -16,3 +16,6 @@ pygraz_website/settings/development.py
 live.ini
 stage.ini
 Procfile
+.tox
+.coverage
+htmlcov

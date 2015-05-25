@@ -1,0 +1,6 @@
+[run]
+source = pygraz_website
+branch = True
+
+[report]
+omit = *tests*,*migrations*,*settings*,*wsgi*
