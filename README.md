@@ -1,5 +1,7 @@
 # PyGRAZ website
 
+[![Coverage Status](https://coveralls.io/repos/pygraz/website/badge.svg?branch=develop)](https://coveralls.io/r/pygraz/website?branch=develop)
+
 The PyGRAZ website currently supports the creation of meetups and for users to make session proposal which can
 then be assigned to a meetup.
 
