@@ -23,12 +23,12 @@ class MeetupManager(models.Manager):
         """
         if now is None:
             now = timezone.now()
-        return self.get_query_set().filter(start_date__lte=now)
+        return self.get_queryset().filter(start_date__lte=now)
 
     def get_future_meetups(self, now=None):
         if now is None:
             now = timezone.now()
-        return self.get_query_set().filter(start_date__gt=now)
+        return self.get_queryset().filter(start_date__gt=now)
 
 
 class SessionManager(models.Manager):
@@ -36,7 +36,7 @@ class SessionManager(models.Manager):
         """
         Adds a filter for sessions that are not assigned to a meetup yet.
         """
-        return self.get_query_set().filter(meetup__isnull=True)
+        return self.get_queryset().filter(meetup__isnull=True)
 
 
 class Location(models.Model):
