@@ -1,6 +1,12 @@
-from fabric.api import run, cd, prefix, put, local, env, lcd, abort, task, runs_once
+from fabric.api import run, cd, prefix, put, local, env, lcd, abort, task
+from fabric.api import runs_once
 
 env_prefix = 'source %s/env/bin/activate' % (env.cwd)
+
+
+def get_manage():
+    return "/usr/local/bin/envdir /srv/www/pygraz.org/{env}/conf python manage-{env}.py".format(env=env.environment)
+
 
 @task
 def deploy():
@@ -65,17 +71,18 @@ def install_environment():
 
 def update_db():
     with prefix(env_prefix), cd('app'):
-        run('python manage-{0}.py syncdb --noinput'.format(env.environment))
-        run('python manage-{0}.py migrate --noinput'.format(env.environment))
+        run('{manage} syncdb --noinput'.format(manage=get_manage()))
+        run('{manage} migrate --noinput'.format(manage=get_manage()))
 
 
 def collect_static_files():
     with prefix(env_prefix), cd('app'):
-        run('mkdir -p pygraz_website/static_collected && python manage-{0}.py collectstatic -c --noinput'.format(env.environment))
+        run('mkdir -p pygraz_website/static_collected && {manage} collectstatic -c --noinput'.format(manage=get_manage()))
 
 
 def start_server():
     run('supervisorctl -c /srv/www/pygraz.org/{0}/supervisord.conf start pygraz'.format(env.environment))
+
 
 @task
 @runs_once
