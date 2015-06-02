@@ -1,8 +1,8 @@
-from fabric.api import run, cd, prefix, put, local, env, lcd, abort
+from fabric.api import run, cd, prefix, put, local, env, lcd, abort, task, runs_once
 
 env_prefix = 'source %s/env/bin/activate' % (env.cwd)
 
-
+@task
 def deploy():
     check_branch()
     prepare_package()
@@ -76,3 +76,13 @@ def collect_static_files():
 
 def start_server():
     run('supervisorctl -c /srv/www/pygraz.org/{0}/supervisord.conf start pygraz'.format(env.environment))
+
+@task
+@runs_once
+def register_deployment(git_path):
+    with(lcd(git_path)):
+        local('curl https://intake.opbeat.com/api/v1/organizations/{opbeat_org_id}/apps/{opbeat_app_id}/releases/'
+              ' -H "Authorization: Bearer {opbeat_secret_token}"'
+              ' -d rev=`git log -n 1 --pretty=format:%H`'
+              ' -d branch=`git rev-parse --abbrev-ref HEAD`'
+              ' -d status=completed'.format(**env))
