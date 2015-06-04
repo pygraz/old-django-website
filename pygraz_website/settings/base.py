@@ -132,6 +132,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'flat',
     'django.contrib.admin',
 
     'easy_thumbnails',
