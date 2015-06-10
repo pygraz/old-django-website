@@ -36,9 +36,13 @@ class MeetupModelTests(TestCase):
         now = timezone.now()
         past_meetup = models.Meetup(start_date=now - datetime.timedelta(days=1)).save()
         now_meetup = models.Meetup(start_date=now).save()
-        future_meetup_1 = models.Meetup(start_date=now + datetime.timedelta(days=1)).save()
-        future_meetup_2 = models.Meetup(start_date=now + datetime.timedelta(days=2)).save()
-        for m in models.Meetup.objects.get_future_meetups(now=now):
+        future_meetup_1 = models.Meetup(start_date=now + datetime.timedelta(days=1))
+        future_meetup_1.save()
+        future_meetup_2 = models.Meetup(start_date=now + datetime.timedelta(days=2))
+        future_meetup_2.save()
+        found_meetups = list(models.Meetup.objects.get_future_meetups(now=now))
+        self.assertEqual([future_meetup_2, future_meetup_1], found_meetups)
+        for m in found_meetups:
             self.assertTrue(m.is_in_future(now))
 
     def test_past_meetups_through_manager(self):

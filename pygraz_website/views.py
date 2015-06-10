@@ -14,7 +14,8 @@ def index(request):
     try:
         next_meetup = meetup_models.Meetup.objects.get_future_meetups(now=today)\
             .order_by('-start_date')\
-            .select_related('location', 'sessions', 'sessions__speaker')[0]
+            .prefetch_related('sessions', 'sessions__speaker')\
+            .select_related('location')[0]
     except:
         next_meetup = None
     past_meetups = meetup_models.Meetup.objects.get_past_meetups(now=today)
