@@ -37,7 +37,7 @@
         var disqus_identifier = "session:{{ session.pk }}";
         var disqus_url = "{{ session.get_permalink }}";
         var disqus_developer = {% if disqus.developer_mode %}1{% else %}0{% endif %};
-        var disqus_title = document.getElementsByTagName('title')[0].textContent;
+        var disqus_title = document.querySelector('title').text;
         (function() {
             var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
             dsq.src = 'https://' + disqus_shortname + '.disqus.com/embed.js';
