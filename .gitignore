@@ -12,7 +12,6 @@ pygraz_website/static/css/icomoon
 *.mo
 pygraz_website/settings/live.py
 pygraz_website/settings/stage.py
-pygraz_website/settings/development.py
 live.ini
 stage.ini
 Procfile

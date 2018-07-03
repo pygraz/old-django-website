@@ -33,15 +33,7 @@ pip install -r requirements.txt
 </pre>
 
 We are using a multi-settings-file approach for handling settings on different target systems. For local development
-you should create a "pygraz_website/settings/development.py" which could include following settings:
-
-<pre><code>from .base import *
-
-RECAPTCHA_PRIVATE_KEY = "GET_YOURSELF_A_RECAPTCHA_KEY"
-RECAPTCHA_PUBLIC_KEY = "GET_YOURSELF_A_RECAPTCHA_KEY"
-POSTMARK_API_KEY = 'GET_YOURSELF_A_POSTMAR_KEY'
-SECRET_KEY = '12345'
-POSTMARK_TEST_MODE = True</code></pre>
+you should use "pygraz_website/settings/development.py" which just sets some plain defaults and doesn't send emails.
 
 Now on to creating the database. By default the website looks for a PostgreSQL database by the name of "pygraz-website"
 accessibly by the current system user.
