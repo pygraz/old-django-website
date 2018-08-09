@@ -79,6 +79,16 @@ automatically compiled into .css files.
 The pygraz.org website uses the icomoon icon-font for its icons. Due to license restrictions we are not allowed to
 bundle it with the website's source code. For details on this font visit http://keyamoon.com/icomoon/
 
+## Deployment
+
+For deployments we are using an Ansible playbook which builds a production.zip
+and deploys that onto the target server:
+
+```
+cd ansible/playbooks
+ansible-playbook -i ../hosts deploy.yml
+```
+
 
 [pip]: http://pypi.python.org/pypi/pip
 [rc]: http://recaptcha.net/

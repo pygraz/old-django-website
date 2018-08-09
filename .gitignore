@@ -6,6 +6,8 @@
 *.sql
 *.sublime*
 .codeintel
+.venv
+*.retry
 pygraz_website/static/css/icomoon
 *.DS_Store
 *.zip
