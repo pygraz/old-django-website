@@ -120,6 +120,7 @@ TEMPLATE_DIRS = (
 
 TEMPLATE_CONTEXT_PROCESSORS = list(default_settings.TEMPLATE_CONTEXT_PROCESSORS) + [
     'django.core.context_processors.request',
+    'pygraz_website.context_processors.googlemaps',
     'pygraz_website.context_processors.disqus',
 ]
 
@@ -207,3 +208,4 @@ MEETUPS_CALENDAR_NAME = 'PyGRAZ-Meetups'
 MEETUPCOM_API_KEY = os.environ.get('DJANGO_MEETUPCOM_API_KEY')
 NOCAPTCHA = True
 RECAPTCHA_USE_SSL = True
+GOOGLEMAPS_API_KEY = os.environ.get('DJANGO_GOOGLEMAPS_API_KEY')
