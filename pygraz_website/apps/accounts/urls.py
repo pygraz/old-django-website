@@ -1,8 +1,7 @@
-from django.conf.urls import url, patterns
+from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as auth_views
 
-from userena.compat import auth_views_compat_quirks, password_reset_uid_kwarg
 # from userena import settngs as userena_settings
 from userena import views as userena_views
 
@@ -17,7 +16,7 @@ def merge_dicts(a, b):
     return result
 
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^signin/$',
         userena_views.signin,
         {'auth_form': forms.AuthenticationForm},
@@ -43,17 +42,17 @@ urlpatterns = patterns('',
                 'password_reset_form': forms.PasswordResetForm,
                 'extra_context': {'without_usernames': False}
             },
-            auth_views_compat_quirks['userena_password_reset']
+            { 'post_reset_redirect': 'userena_password_reset_done' }
         ),
         name='userena_password_reset'),
-    url(r'^password/reset/confirm/(?P<%s>[0-9A-Za-z]+)-(?P<token>.+)/$' % password_reset_uid_kwarg,
+    url(r'^password/reset/confirm/(?P<%s>[0-9A-Za-z]+)-(?P<token>.+)/$' % 'uidb64',
         auth_views.password_reset_confirm,
         merge_dicts(
             {
                 'template_name': 'userena/password_reset_confirm_form.html',
                 'set_password_form': forms.SetPasswordForm,
             },
-            auth_views_compat_quirks['userena_password_reset_confirm']
+            {'post_reset_redirect': 'userena_password_reset_complete'}
         ),
         name='userena_password_reset_confirm'),
     url(r'^(?P<username>[\.\w]+)/edit/$',
@@ -63,4 +62,4 @@ urlpatterns = patterns('',
     url(r'^(?P<username>[\.\w]+)/contents/$',
         login_required(views.MyContentsView.as_view()),
         name='my_contents'),
-)
+]

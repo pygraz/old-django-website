@@ -26,7 +26,7 @@ class Company(models.Model):
                                choices=COUNTRY_CHOICES)
 
     approved = models.BooleanField(_("approved"), default=False)
-    editors = models.ManyToManyField(settings.AUTH_USER_MODEL, null=True,
+    editors = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                      blank=True,
                                      related_name='companies')
 

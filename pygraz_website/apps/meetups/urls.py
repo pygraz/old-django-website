@@ -1,11 +1,10 @@
-from django.conf.urls import url, patterns
+from django.conf.urls import url
 from django.contrib.auth.decorators import login_required
 
 from . import views
 
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url('^(?P<year>\d{4})-(?P<month>\d{2})-(?P<day>\d{2})$',
         views.DetailView.as_view(), name="view-meetup"),
     url('^(?P<pk>\d+)/$',
@@ -19,4 +18,4 @@ urlpatterns = patterns(
     url('^sessions/(?P<pk>\d+)/delete/$',
         login_required(views.DeleteSession.as_view()), name="delete-session"),
     url('^ical/$', views.ICalendarView.as_view(), name="ical"),
-)
+]

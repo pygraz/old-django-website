@@ -13,7 +13,6 @@ from django.conf import global_settings as default_settings
 import os
 
 DEBUG = True
-TEMPLATE_DEBUG = DEBUG
 ROOT = dirname(dirname(abspath(__file__)))
 
 INTERNAL_IPS = ['127.0.0.1']
@@ -94,12 +93,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
-
 MIDDLEWARE_CLASSES = [
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -114,14 +107,28 @@ ROOT_URLCONF = 'pygraz_website.urls'
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'pygraz_website.wsgi.application'
 
-TEMPLATE_DIRS = (
-    join(ROOT, 'templates'),
-)
+prev_ctx_processors = []
+if default_settings.TEMPLATES and 'CONTEXT_PROCESSORS' in default_settings.TEMPLATES[0]:
+    prev_ctx_processors.extend(default_settings.TEMPLATES[0].get('CONTEXT_PROCESSORS', []))
 
-TEMPLATE_CONTEXT_PROCESSORS = list(default_settings.TEMPLATE_CONTEXT_PROCESSORS) + [
-    'django.core.context_processors.request',
-    'pygraz_website.context_processors.googlemaps',
-    'pygraz_website.context_processors.disqus',
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': 'templates',
+        'OPTIONS': {
+            'context_processors': (prev_ctx_processors + [
+                    'django.core.context_processors.request',
+                    'pygraz_website.context_processors.googlemaps',
+                    'pygraz_website.context_processors.disqus',
+                ]),
+            'debug': DEBUG,
+            # List of callables that know how to import templates from various sources.
+            'LOADERS': (
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+            )
+        }
+    }
 ]
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
@@ -180,7 +187,7 @@ LOGGING = {
 CRISPY_FAIL_SILENTLY = False
 CRISPY_TEMPLATE_PACK = "bootstrap"
 
-ANONYMOUS_USER_ID = -1
+ANONYMOUS_USER_NAME = "user"
 AUTHENTICATION_BACKENDS = (
     'userena.backends.UserenaAuthenticationBackend',
     'guardian.backends.ObjectPermissionBackend',
