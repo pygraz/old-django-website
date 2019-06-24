@@ -11,5 +11,5 @@ Markdown==2.4.0
 Pillow==5.2.0
 raven==5.3.1
 icalendar==3.9.0
-requests==2.7.0
+requests==2.20.0
 arrow==0.5.4
