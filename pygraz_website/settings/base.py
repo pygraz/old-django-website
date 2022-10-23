@@ -93,9 +93,10 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
 
-MIDDLEWARE_CLASSES = [
-    'django.middleware.common.CommonMiddleware',
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -118,18 +119,21 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': (prev_ctx_processors + [
                     'django.core.context_processors.request',
+                    "django.contrib.messages.context_processors.messages",
+                    "django.contrib.auth.context_processors.auth",
                     'pygraz_website.context_processors.googlemaps',
                     'pygraz_website.context_processors.disqus',
                 ]),
             'debug': DEBUG,
             # List of callables that know how to import templates from various sources.
-            'LOADERS': (
+            'loaders': (
                 'django.template.loaders.filesystem.Loader',
                 'django.template.loaders.app_directories.Loader',
             )
         }
     }
 ]
+
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 

@@ -15,5 +15,5 @@ urlpatterns = [
     url(r'^accounts/', include('userena.urls')),
     url(r'^meetups/', include('pygraz_website.apps.meetups.urls')),
     url(r'^companies/', include('pygraz_website.apps.companies.urls')),
-    url(r'^admin/', include(admin.site.urls)),
+    url("admin/", admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

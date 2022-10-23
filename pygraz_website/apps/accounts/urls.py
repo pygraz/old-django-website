@@ -34,7 +34,7 @@ urlpatterns = [
         {'pass_form': forms.PasswordChangeForm},
         name='userena_password_change'),
     url(r'^password/reset/$',
-        auth_views.password_reset,
+        auth_views.PasswordResetView,
         merge_dicts(
             {
                 'template_name': 'userena/password_reset_form.html',
@@ -46,7 +46,7 @@ urlpatterns = [
         ),
         name='userena_password_reset'),
     url(r'^password/reset/confirm/(?P<%s>[0-9A-Za-z]+)-(?P<token>.+)/$' % 'uidb64',
-        auth_views.password_reset_confirm,
+        auth_views.PasswordResetConfirmView,
         merge_dicts(
             {
                 'template_name': 'userena/password_reset_confirm_form.html',

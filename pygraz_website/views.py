@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.utils.timezone import now
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from .apps.meetups import models as meetup_models
 from .apps.meetups import forms as meetup_forms

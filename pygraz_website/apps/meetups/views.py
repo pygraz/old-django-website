@@ -1,7 +1,7 @@
 #-*- encoding: utf-8 -*-
 import datetime
 import pytz
-import urlparse
+from urllib.parse import urlparse
 import collections
 import icalendar
 
@@ -33,7 +33,7 @@ class NextRedirectMixin(object):
         next = self.request.GET.get(self.redirect_param)
         if next is None:
             return None
-        netloc = urlparse.urlparse(next)[1]
+        netloc = urlparse(next)[1]
         if netloc is None or netloc == "" or netloc == self.request.get_host():
             return next
         return None

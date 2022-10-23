@@ -9,4 +9,5 @@ class Profile(UserenaBaseProfile):
     user = models.OneToOneField(auth_models.User,
                                 unique=True,
                                 verbose_name=_('user'),
+                                on_delete = models.CASCADE,
                                 related_name='profile')

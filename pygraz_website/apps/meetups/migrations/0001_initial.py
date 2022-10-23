@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
                 ('description', models.TextField(null=True, blank=True)),
                 ('notes', models.TextField(null=True, blank=True)),
                 ('attendee_count', models.IntegerField(blank=True, null=True, validators=[django.core.validators.MinValueValidator(0)])),
-                ('location', models.ForeignKey(blank=True, to='meetups.Location', null=True)),
+                ('location', models.ForeignKey(blank=True, to='meetups.Location', null=True, on_delete=django.db.models.deletion.PROTECT)),
             ],
             options={
                 'ordering': ('-start_date',),
@@ -56,7 +56,7 @@ class Migration(migrations.Migration):
                 ('gplus_name', models.CharField(max_length=100, null=True, verbose_name='Google+ Username', blank=True)),
                 ('gplus_uid', models.CharField(max_length=100, null=True, verbose_name='Google+ User ID', blank=True)),
                 ('source', models.CharField(max_length=20, null=True, blank=True)),
-                ('meetup', models.ForeignKey(related_name='rsvps', verbose_name='Meetup', to='meetups.Meetup')),
+                ('meetup', models.ForeignKey(related_name='rsvps', verbose_name='Meetup', to='meetups.Meetup', on_delete=django.db.models.deletion.PROTECT)),
             ],
             options={
                 'verbose_name': 'RSVP',
@@ -74,8 +74,8 @@ class Migration(migrations.Migration):
                 ('speaker_email', models.EmailField(max_length=75, null=True, verbose_name=b'E-Mail-Adresse', blank=True)),
                 ('slides_url', models.URLField(null=True, verbose_name=b'Folien-URL', blank=True)),
                 ('notes', models.TextField(null=True, verbose_name=b'Notizen', blank=True)),
-                ('meetup', models.ForeignKey(related_name='sessions', verbose_name=b'Meetup', blank=True, to='meetups.Meetup', null=True)),
-                ('speaker', models.ForeignKey(verbose_name=b'Vortragender', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('meetup', models.ForeignKey(related_name='sessions', verbose_name=b'Meetup', blank=True, to='meetups.Meetup', null=True, on_delete=django.db.models.deletion.PROTECT)),
+                ('speaker', models.ForeignKey(verbose_name=b'Vortragender', blank=True, to=settings.AUTH_USER_MODEL, null=True, on_delete=django.db.models.deletion.PROTECT)),
             ],
             options={
                 'verbose_name': 'Session',

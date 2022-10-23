@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth import models as auth_models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib.sites.models import Site
 from django.core import validators
 
@@ -55,7 +55,7 @@ class Location(models.Model):
 
 class Meetup(models.Model):
     start_date = models.DateTimeField()
-    location = models.ForeignKey(Location, blank=True, null=True)
+    location = models.ForeignKey(Location, blank=True, null=True, on_delete=models.CASCADE)
     meetupcom_id = models.CharField(blank=True, null=True, max_length=20)
     gplus_id = models.CharField(blank=True, null=True, max_length=50)
     description = models.TextField(blank=True, null=True)
@@ -102,12 +102,12 @@ class Session(models.Model):
     title = models.CharField("Titel", max_length=255)
     abstract = models.TextField("Kurzbeschreibung")
     meetup = models.ForeignKey(Meetup, verbose_name="Meetup", blank=True,
-        null=True, related_name='sessions')
+        null=True, on_delete=models.CASCADE,  related_name='sessions')
     speaker_name = models.CharField("Vortragender", max_length=100, blank=True,
         null=True)
     speaker_email = models.EmailField("E-Mail-Adresse", blank=True, null=True)
     speaker = models.ForeignKey(auth_models.User, verbose_name="Vortragender",
-        blank=True, null=True)
+        blank=True, null=True, on_delete=models.CASCADE)
     slides_url = models.URLField("Folien-URL", blank=True, null=True)
     notes = models.TextField("Notizen", blank=True, null=True)
     type = models.ForeignKey('SessionType', verbose_name="Vortragsart",
@@ -180,7 +180,7 @@ class RSVP(models.Model):
     remote_uid = models.CharField(_("User ID"), null=True, blank=True,
         max_length=100)
     meetup = models.ForeignKey("Meetup", null=False, verbose_name=_("Meetup"),
-        related_name='rsvps')
+        on_delete=models.CASCADE, related_name='rsvps')
     source = models.CharField(max_length=20, blank=True, null=True)
 
     @property
