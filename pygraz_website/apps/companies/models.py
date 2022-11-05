@@ -1,6 +1,6 @@
 # -*- encoding: utf-8 -*-
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from django.conf import settings
 
@@ -8,9 +8,7 @@ from pygraz_website.apps.accounts import contents
 import guardian.shortcuts
 
 
-COUNTRY_CHOICES = (
-    ('AT', _('Austria')),
-)
+COUNTRY_CHOICES = (("AT", _("Austria")),)
 
 
 class Company(models.Model):
@@ -22,18 +20,17 @@ class Company(models.Model):
     address_line = models.CharField(_("address line"), max_length=255)
     postal_code = models.CharField(_("postal code"), max_length=10)
     city = models.CharField(_("city"), max_length=50)
-    country = models.CharField(_("country"), max_length=3,
-                               choices=COUNTRY_CHOICES)
+    country = models.CharField(_("country"), max_length=3, choices=COUNTRY_CHOICES)
 
     approved = models.BooleanField(_("approved"), default=False)
-    editors = models.ManyToManyField(settings.AUTH_USER_MODEL,
-                                     blank=True,
-                                     related_name='companies')
+    editors = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, blank=True, related_name="companies"
+    )
 
     pub_date = models.DateTimeField(_("Published at"), auto_now_add=True)
 
     def get_absolute_url(self):
-        return reverse('company-details', kwargs={'pk': self.pk})
+        return reverse("company-details", kwargs={"pk": self.pk})
 
     def __unicode__(self):
         return self.name
@@ -41,7 +38,7 @@ class Company(models.Model):
     class Meta(object):
         verbose_name = _("company")
         verbose_name_plural = _("companies")
-        ordering = ('name',)
+        ordering = ("name",)
 
 
 class CompanyContentProxy(contents.BaseProxy):
@@ -49,6 +46,9 @@ class CompanyContentProxy(contents.BaseProxy):
     label = _("My companies")
 
     def get_queryset(self):
-        return guardian.shortcuts.get_objects_for_user(self.request.user, 'companies.change_company')
+        return guardian.shortcuts.get_objects_for_user(
+            self.request.user, "companies.change_company"
+        )
+
 
 contents.register(CompanyContentProxy)

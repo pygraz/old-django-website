@@ -1,0 +1,5 @@
+DB_USER = "pguser"
+DB_PASSWORD = "1234"
+DB_NAME = "pygraz_test"
+DB_HOST = "localhost"
+SECRET_KEY = "1234123412341234"
