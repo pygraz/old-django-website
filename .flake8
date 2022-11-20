@@ -1,0 +1,4 @@
+[flake8]
+# TODO#34: Clean up flake8 issue.
+ignore = E203,E722,F401,F403,F811,F821,F841,W503
+max-line-length = 120
