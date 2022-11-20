@@ -1,13 +1,12 @@
-from django.db import models
 from django.contrib.auth import models as auth_models
-from django.utils.translation import gettext_lazy as _
-from django.utils import timezone
-from django.urls import reverse
 from django.contrib.sites.models import Site
 from django.core import validators
+from django.db import models
+from django.urls import reverse
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from pygraz_website.apps.accounts import contents
-
 
 RSVP_STATUS_CHOICES = (
     ("not_coming", _("Not coming")),
@@ -55,9 +54,7 @@ class Location(models.Model):
 
 class Meetup(models.Model):
     start_date = models.DateTimeField()
-    location = models.ForeignKey(
-        Location, blank=True, null=True, on_delete=models.CASCADE
-    )
+    location = models.ForeignKey(Location, blank=True, null=True, on_delete=models.CASCADE)
     meetupcom_id = models.CharField(blank=True, null=True, max_length=20)
     gplus_id = models.CharField(blank=True, null=True, max_length=50)
     description = models.TextField(blank=True, null=True)
@@ -116,9 +113,7 @@ class Session(models.Model):
         on_delete=models.CASCADE,
         related_name="sessions",
     )
-    speaker_name = models.CharField(
-        "Vortragender", max_length=100, blank=True, null=True
-    )
+    speaker_name = models.CharField("Vortragender", max_length=100, blank=True, null=True)
     speaker_email = models.EmailField("E-Mail-Adresse", blank=True, null=True)
     speaker = models.ForeignKey(
         auth_models.User,
@@ -146,9 +141,7 @@ class Session(models.Model):
         return reverse("view-session", kwargs={"pk": self.pk})
 
     def get_permalink(self):
-        return "http://{0}{1}".format(
-            Site.objects.get_current(), self.get_absolute_url()
-        )
+        return "http://{0}{1}".format(Site.objects.get_current(), self.get_absolute_url())
 
     def get_speaker_name(self):
         if self.speaker:
@@ -199,12 +192,8 @@ class RSVP(models.Model):
     by a null value).
     """
 
-    status = models.CharField(
-        _("Status"), choices=RSVP_STATUS_CHOICES, null=True, blank=True, max_length=20
-    )
-    remote_username = models.CharField(
-        _("Username"), null=True, blank=True, max_length=100
-    )
+    status = models.CharField(_("Status"), choices=RSVP_STATUS_CHOICES, null=True, blank=True, max_length=20)
+    remote_username = models.CharField(_("Username"), null=True, blank=True, max_length=100)
     remote_uid = models.CharField(_("User ID"), null=True, blank=True, max_length=100)
     meetup = models.ForeignKey(
         "Meetup",

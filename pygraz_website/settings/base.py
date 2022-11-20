@@ -8,9 +8,10 @@
 # SECRET_KEY
 #
 
-from os.path import dirname, abspath, join
-from django.conf import global_settings as default_settings
 import os
+from os.path import abspath, dirname, join
+
+from django.conf import global_settings as default_settings
 
 DEBUG = True
 ROOT = dirname(dirname(abspath(__file__)))
@@ -106,9 +107,7 @@ WSGI_APPLICATION = "pygraz_website.wsgi.application"
 
 prev_ctx_processors = []
 if default_settings.TEMPLATES and "CONTEXT_PROCESSORS" in default_settings.TEMPLATES[0]:
-    prev_ctx_processors.extend(
-        default_settings.TEMPLATES[0].get("CONTEXT_PROCESSORS", [])
-    )
+    prev_ctx_processors.extend(default_settings.TEMPLATES[0].get("CONTEXT_PROCESSORS", []))
 
 TEMPLATES = [
     {

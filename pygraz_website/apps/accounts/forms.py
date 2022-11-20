@@ -1,10 +1,8 @@
-from userena import forms as userena_forms
-from django.contrib.auth import forms as auth_forms
-
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import ButtonHolder, Submit, Field, Layout
-
+from crispy_forms.layout import ButtonHolder, Field, Layout, Submit
+from django.contrib.auth import forms as auth_forms
 from django.utils.translation import gettext_lazy as _
+from userena import forms as userena_forms
 
 
 class AuthenticationForm(userena_forms.AuthenticationForm):

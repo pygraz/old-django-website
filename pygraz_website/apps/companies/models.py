@@ -1,12 +1,11 @@
 # -*- encoding: utf-8 -*-
-from django.db import models
-from django.utils.translation import gettext_lazy as _
-from django.urls import reverse
+import guardian.shortcuts
 from django.conf import settings
+from django.db import models
+from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 from pygraz_website.apps.accounts import contents
-import guardian.shortcuts
-
 
 COUNTRY_CHOICES = (("AT", _("Austria")),)
 
@@ -23,9 +22,7 @@ class Company(models.Model):
     country = models.CharField(_("country"), max_length=3, choices=COUNTRY_CHOICES)
 
     approved = models.BooleanField(_("approved"), default=False)
-    editors = models.ManyToManyField(
-        settings.AUTH_USER_MODEL, blank=True, related_name="companies"
-    )
+    editors = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name="companies")
 
     pub_date = models.DateTimeField(_("Published at"), auto_now_add=True)
 
@@ -46,9 +43,7 @@ class CompanyContentProxy(contents.BaseProxy):
     label = _("My companies")
 
     def get_queryset(self):
-        return guardian.shortcuts.get_objects_for_user(
-            self.request.user, "companies.change_company"
-        )
+        return guardian.shortcuts.get_objects_for_user(self.request.user, "companies.change_company")
 
 
 contents.register(CompanyContentProxy)

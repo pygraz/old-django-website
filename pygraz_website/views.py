@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from django.utils.timezone import now
 from django.urls import reverse
+from django.utils.timezone import now
 
-from .apps.meetups import models as meetup_models
 from .apps.meetups import forms as meetup_forms
+from .apps.meetups import models as meetup_models
 
 
 def index(request):
@@ -21,9 +21,7 @@ def index(request):
     except:
         next_meetup = None
     past_meetups = meetup_models.Meetup.objects.get_past_meetups(now=today)
-    session_proposals = meetup_models.Session.objects.get_proposals().select_related(
-        "speaker"
-    )
+    session_proposals = meetup_models.Session.objects.get_proposals().select_related("speaker")
     submission_form = meetup_forms.get_session_submission_form_class(request)()
     submission_form.helper.form_action = reverse("submit-session") + "?next=/"
     return render(

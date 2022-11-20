@@ -1,9 +1,7 @@
 # -*- encoding: utf-8 -*-
-from django import forms
-from django.utils.translation import gettext_lazy as _
-
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, ButtonHolder, Submit, Fieldset
+from crispy_forms.layout import ButtonHolder, Fieldset, Layout, Submit
+from django import forms
 
 from . import models
 

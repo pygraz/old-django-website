@@ -10,22 +10,24 @@ Slides can be linked to from the session page (as well as the meetup page).
 
 ## Requirements
 
-* Django and everything mentioned in the requirements.txt
-* Compass
-* For all functionality: a [Postmark][pm] account
-* For all functionality: a [Recaptcha][rc] account
+- Django and everything mentioned in the requirements.txt
+- Compass
+- For all functionality: a [Postmark][pm] account
+- For all functionality: a [Recaptcha][rc] account
 
 To install the Python requirements, using [pip][pip] is recommended.
 
 ## Setup
 
 First clone this repository:
+
 <pre>
 git clone <url of this repo>
 cd website
 </pre>
 
 Then create a virtualenv for all the Python requirements, activate it and install the requirements:
+
 <pre>
 mkvirtualenv --no-site-packages env
 source env/bin/active
@@ -88,7 +90,6 @@ and deploys that onto the target server:
 cd ansible/playbooks
 ansible-playbook -i ../hosts deploy.yml
 ```
-
 
 [pip]: http://pypi.python.org/pypi/pip
 [rc]: http://recaptcha.net/

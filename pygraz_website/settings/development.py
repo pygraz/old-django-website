@@ -1,13 +1,13 @@
 from .base import *
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'pygraz-django',
-        'USER': 'postgres',
-        'PASSWORD': 'deMo.123',
-        'HOST': 'localhost',
-        'PORT': '5433',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": "pygraz-django",
+        "USER": "postgres",
+        "PASSWORD": "deMo.123",
+        "HOST": "localhost",
+        "PORT": "5433",
     }
 }
 

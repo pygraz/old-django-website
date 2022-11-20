@@ -1,13 +1,12 @@
 # -*- encoding: utf-8 -*-
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import ButtonHolder, Field, Layout, Submit
 from django import forms
 from django.utils.safestring import mark_safe
 
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, ButtonHolder, Submit
+from . import models
 
 # from captcha.fields import ReCaptchaField
-
-from . import models
 
 
 class AnonymousSessionSubmissionForm(forms.ModelForm):
@@ -20,7 +19,8 @@ class AnonymousSessionSubmissionForm(forms.ModelForm):
         fields = ("title", "abstract", "speaker_name", "speaker_email", "type")
         widgets = {"type": forms.RadioSelect}
         help_texts = {
-            "speaker_email": """Wir benötigen deine E-Mail-Adresse, um etwaige Termin und Themefragen mit dir abklären zu können."""
+            "speaker_email": """Wir benötigen deine E-Mail-Adresse, um etwaige Termin
+            und Themefragen mit dir abklären zu können."""
         }
 
     def __init__(self, *args, **kwargs):
@@ -73,7 +73,8 @@ class EditSessionForm(forms.ModelForm):
         fields = ("title", "abstract", "slides_url", "notes", "type")
         widgets = {"type": forms.RadioSelect}
         help_texts = {
-            "abstract": """Bitte beschreibe kurz, worum es in deiner Session geht. Wo sind die Einsatzgebiete, wie komplex ist das Ganze usw."""
+            "abstract": """Bitte beschreibe kurz, worum es in deiner Session geht.
+            Wo sind die Einsatzgebiete, wie komplex ist das Ganze usw."""
         }
 
     def __init__(self, *args, **kwargs):
@@ -101,11 +102,7 @@ def _extend_type_choice_labels(field):
             new_choices.append(
                 (
                     choice[0],
-                    mark_safe(
-                        "{0}: <span>{1}</span>".format(
-                            choice[1], types[choice[0]].description
-                        )
-                    ),
+                    mark_safe("{0}: <span>{1}</span>".format(choice[1], types[choice[0]].description)),
                 )
             )
         else:

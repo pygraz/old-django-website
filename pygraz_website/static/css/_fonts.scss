@@ -1,23 +1,76 @@
-
-@mixin create-fontface($name,$filebase,$weight:normal,$style:normal,$svgid:'webfont') {
-    @font-face {
-        font-family: '#{$name}';
-        src: url('#{$filebase}.eot');
-        src: url('#{$filebase}.eot?#iefix') format('embedded-opentype'),
-                 url('/static/fonts/#{$filebase}.woff') format('woff'),
-                 url('/static/fonts/#{$filebase}.ttf') format('truetype'),
-                 url('/static/fonts/#{$filebase}.svg##{$svgid}') format('svg');
-        font-weight: $weight;
-        font-style: $style;
-    }
+@mixin create-fontface(
+  $name,
+  $filebase,
+  $weight: normal,
+  $style: normal,
+  $svgid: "webfont"
+) {
+  @font-face {
+    font-family: "#{$name}";
+    src: url("#{$filebase}.eot");
+    src: url("#{$filebase}.eot?#iefix") format("embedded-opentype"),
+      url("/static/fonts/#{$filebase}.woff") format("woff"),
+      url("/static/fonts/#{$filebase}.ttf") format("truetype"),
+      url("/static/fonts/#{$filebase}.svg##{$svgid}") format("svg");
+    font-weight: $weight;
+    font-style: $style;
+  }
 }
 
-@include create-fontface('LeagueGothic', 'League_Gothic-webfont');
-@include create-fontface('PTCaptionNarrow', 'PTC55F-webfont', normal, normal, 'PTSansCaptionRegular');
-@include create-fontface('PTCaptionNarrow', 'PTC75F-webfont', bold, normal, 'PTSansCaptionBold');
-@include create-fontface('PTSansNarrow', 'PTN57F-webfont', normal, normal, 'PTSansNarrowRegular');
-@include create-fontface('PTSansNarrow', 'PTN77F-webfont', bold, normal, 'PTSansNarrowBold');
-@include create-fontface('PTSans', 'PTS75F-webfont', bold, normal, 'PTSansBold');
-@include create-fontface('PTSans', 'PTS76F-webfont', bold, italic, 'PTSansBoldItalic');
-@include create-fontface('PTSans', 'PTS56F-webfont', normal, italic, 'PTSansItalic');
-@include create-fontface('PTSans', 'PTS55F-webfont', normal, normal, 'PTSansRegular');
+@include create-fontface("LeagueGothic", "League_Gothic-webfont");
+@include create-fontface(
+  "PTCaptionNarrow",
+  "PTC55F-webfont",
+  normal,
+  normal,
+  "PTSansCaptionRegular"
+);
+@include create-fontface(
+  "PTCaptionNarrow",
+  "PTC75F-webfont",
+  bold,
+  normal,
+  "PTSansCaptionBold"
+);
+@include create-fontface(
+  "PTSansNarrow",
+  "PTN57F-webfont",
+  normal,
+  normal,
+  "PTSansNarrowRegular"
+);
+@include create-fontface(
+  "PTSansNarrow",
+  "PTN77F-webfont",
+  bold,
+  normal,
+  "PTSansNarrowBold"
+);
+@include create-fontface(
+  "PTSans",
+  "PTS75F-webfont",
+  bold,
+  normal,
+  "PTSansBold"
+);
+@include create-fontface(
+  "PTSans",
+  "PTS76F-webfont",
+  bold,
+  italic,
+  "PTSansBoldItalic"
+);
+@include create-fontface(
+  "PTSans",
+  "PTS56F-webfont",
+  normal,
+  italic,
+  "PTSansItalic"
+);
+@include create-fontface(
+  "PTSans",
+  "PTS55F-webfont",
+  normal,
+  normal,
+  "PTSansRegular"
+);

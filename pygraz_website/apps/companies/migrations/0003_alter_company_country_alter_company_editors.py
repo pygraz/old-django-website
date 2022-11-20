@@ -8,18 +8,18 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('companies', '0002_contact_email_length'),
+        ("companies", "0002_contact_email_length"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='company',
-            name='country',
-            field=models.CharField(choices=[('AT', 'Austria')], max_length=3, verbose_name='country'),
+            model_name="company",
+            name="country",
+            field=models.CharField(choices=[("AT", "Austria")], max_length=3, verbose_name="country"),
         ),
         migrations.AlterField(
-            model_name='company',
-            name='editors',
-            field=models.ManyToManyField(blank=True, related_name='companies', to=settings.AUTH_USER_MODEL),
+            model_name="company",
+            name="editors",
+            field=models.ManyToManyField(blank=True, related_name="companies", to=settings.AUTH_USER_MODEL),
         ),
     ]

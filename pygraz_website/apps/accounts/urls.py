@@ -1,12 +1,11 @@
-from django.urls import path
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
+from django.urls import path
 
 # from userena import settngs as userena_settings
 from userena import views as userena_views
 
-from . import forms
-from . import views
+from . import forms, views
 
 
 def merge_dicts(a, b):
