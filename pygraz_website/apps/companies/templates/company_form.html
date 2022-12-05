@@ -1,0 +1,21 @@
+{% extends "companies/base.html" %}
+{% block page_class %}company-submission{% endblock %}
+{% block title %}{% if object %}{{ object.name }} editieren{% else %}Neue Firma eintragen{% endif %} « {% endblock %}
+{% load crispy_forms_tags %}
+{% block body %}
+    <h1>
+        {% if object %}
+        {{ object.name }} editieren
+        {% else %}
+        Neue Firma eintragen
+        {% endif %}
+    </h1>
+    <div id="info">
+        <p>Auf dieser Seite können Sie Ihre Firma zum Verzeichnis von Python-Firmen in Graz hinzufügen. Bitte füllen Sie dieses
+            Formular nur aus, wenn Sie auch wirklich für diese Firma arbeiten.</p>
+        <p>Bevor Ihr Eintrag auch tatsächlich auf der Seite erscheint, muss er zunächst noch von einme Administrator freigeschalten werden.
+            Wir bitten um Verständnis für diese Vorsichtsmassnahme.</p>
+        <p>Ihr Eintrag kann jederzeit ohne Nennung von Gründen wieder von der Seite entfernt werden.</p>
+    </div>
+    {% crispy form %}
+{% endblock body %}

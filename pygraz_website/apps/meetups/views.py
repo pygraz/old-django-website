@@ -1,39 +1,36 @@
-#-*- encoding: utf-8 -*-
-import datetime
-import pytz
-import urlparse
+# -*- encoding: utf-8 -*-
 import collections
-import icalendar
+import datetime
+from urllib.parse import urlparse
 
-from django.views import generic as generic_views
-from django.http import Http404, HttpResponseRedirect, HttpResponse
-from django.utils import timezone
+import icalendar
+import pytz
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.sites.models import Site
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
-from django.conf import settings
+from django.utils import timezone
+from django.views import generic as generic_views
 
-from . import models
-from . import forms
-from . import emails
+from . import emails, forms, models
 from .decorators import allow_only_staff_or_author_during_submission
 
-
-RSVPCollection = collections.namedtuple('RSVPCollection',
-                                        'coming maybe not_coming')
+RSVPCollection = collections.namedtuple("RSVPCollection", "coming maybe not_coming")
 
 
 class NextRedirectMixin(object):
     """
     A simple mixin for checking for a next parameter for redirects.
     """
-    redirect_param = 'next'
+
+    redirect_param = "next"
 
     def get_next_redirect(self):
         next = self.request.GET.get(self.redirect_param)
         if next is None:
             return None
-        netloc = urlparse.urlparse(next)[1]
+        netloc = urlparse(next)[1]
         if netloc is None or netloc == "" or netloc == self.request.get_host():
             return next
         return None
@@ -52,18 +49,16 @@ class DetailView(generic_views.DetailView):
 
     If neither criteria match a meetup, a 404 error page is shown.
     """
+
     model = models.Meetup
 
     def get_object(self):
-        if 'pk' in self.kwargs:
-            return get_object_or_404(
-                self.model.objects.select_related('location'),
-                pk=self.kwargs.get('pk'))
+        if "pk" in self.kwargs:
+            return get_object_or_404(self.model.objects.select_related("location"), pk=self.kwargs.get("pk"))
         else:
             date_start = datetime.datetime(
-                int(self.kwargs.get('year')),
-                int(self.kwargs.get('month')),
-                int(self.kwargs.get('day')), 0, 0, 0)
+                int(self.kwargs.get("year")), int(self.kwargs.get("month")), int(self.kwargs.get("day")), 0, 0, 0
+            )
             date_end = date_start + datetime.timedelta(days=1)
             local_tz = timezone.get_default_timezone()
             date_start = local_tz.localize(date_start)
@@ -71,15 +66,15 @@ class DetailView(generic_views.DetailView):
             utc_date_start = date_start.astimezone(pytz.utc)
             utc_date_end = date_end.astimezone(pytz.utc)
             result = self.model.objects.filter(
-                start_date__gte=utc_date_start,
-                start_date__lte=utc_date_end).select_related('location')
+                start_date__gte=utc_date_start, start_date__lte=utc_date_end
+            ).select_related("location")
             if not len(result):
                 raise Http404
             return result[0]
 
     def get_context_data(self, *args, **kwargs):
         data = super(DetailView, self).get_context_data(*args, **kwargs)
-        data['rsvps'] = self._get_rsvps()
+        data["rsvps"] = self._get_rsvps()
         return data
 
     def _get_rsvps(self):
@@ -94,6 +89,7 @@ class SubmitSession(NextRedirectMixin, generic_views.CreateView):
     """
     Allows a user or guest to submit a session.
     """
+
     model = models.Session
 
     def get_form_class(self):
@@ -114,21 +110,26 @@ class ViewSession(generic_views.DetailView):
     Shows a single session by its PK and returns a 404 page if no matching
     session could be found.
     """
+
     model = models.Session
 
     def get_context_data(self, **kwargs):
         data = super(ViewSession, self).get_context_data(**kwargs)
-        can_delete = self.request.user.is_superuser or\
-            self.request.user.is_staff or\
-            (self.object.speaker and self.object.speaker == self.request.user)
-        data.update({
-            'can_delete': can_delete,
-            'can_edit': can_delete,
-        })
+        can_delete = (
+            self.request.user.is_superuser
+            or self.request.user.is_staff
+            or (self.object.speaker and self.object.speaker == self.request.user)
+        )
+        data.update(
+            {
+                "can_delete": can_delete,
+                "can_edit": can_delete,
+            }
+        )
         return data
 
     def get_object(self):
-        return get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return get_object_or_404(self.model, pk=self.kwargs["pk"])
 
 
 class EditSession(generic_views.UpdateView):
@@ -137,6 +138,7 @@ class EditSession(generic_views.UpdateView):
     the session. Once it has been attached to a meetup, only staff members can
     edit the proposal anymore.
     """
+
     model = models.Session
     form_class = forms.EditSessionForm
 
@@ -145,9 +147,9 @@ class EditSession(generic_views.UpdateView):
         return super(EditSession, self).dispatch(request, *args, **kwargs)
 
     def get_object(self):
-        if hasattr(self, 'object') and self.object:
+        if hasattr(self, "object") and self.object:
             return self.object
-        return get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return get_object_or_404(self.model, pk=self.kwargs["pk"])
 
     def form_valid(self, form):
         messages.success(self.request, "Session aktualisiert.")
@@ -159,17 +161,16 @@ class DeleteSession(NextRedirectMixin, generic_views.DeleteView):
     During the submission period, author and staff can delete a session.
     Afterwards only the staff.
     """
+
     model = models.Session
-    success_url = '/'
+    success_url = "/"
 
     def get_object(self):
-        return get_object_or_404(self.model, pk=self.kwargs['pk'])
+        return get_object_or_404(self.model, pk=self.kwargs["pk"])
 
     def get_context_data(self, **kwargs):
         data = super(DeleteSession, self).get_context_data(**kwargs)
-        data.update({
-            'cancel_url': self.get_success_url()
-        })
+        data.update({"cancel_url": self.get_success_url()})
         return data
 
     def delete(self, request, *args, **kwargs):
@@ -186,25 +187,24 @@ class ICalendarView(generic_views.View):
     """
     This offers a simple ical rendering of all the meetups.
     """
+
     def get_meetup_summary(self, meetup):
         return "PyGRAZ-Meetup am {0}".format(meetup.start_date.date())
 
     def get_meetup_description(self, meetup):
-        return """Details: https://{0}{1}""".format(
-            Site.objects.get_current().domain, meetup.get_absolute_url())
+        return """Details: https://{0}{1}""".format(Site.objects.get_current().domain, meetup.get_absolute_url())
 
     def get(self, request, *args, **kwargs):
         cal = icalendar.Calendar()
-        cal.add('X-WR-CALNAME', settings.MEETUPS_CALENDAR_NAME)
+        cal.add("X-WR-CALNAME", settings.MEETUPS_CALENDAR_NAME)
         site = Site.objects.get_current()
         for meetup in models.Meetup.objects.all():
             evt = icalendar.Event()
-            evt.add('summary', self.get_meetup_summary(meetup))
-            evt.add('description', self.get_meetup_description(meetup))
-            evt.add('dtstart', meetup.start_date)
-            evt['uid'] = '{0}/meetups/{1}'.format(site.domain, meetup.pk)
+            evt.add("summary", self.get_meetup_summary(meetup))
+            evt.add("description", self.get_meetup_description(meetup))
+            evt.add("dtstart", meetup.start_date)
+            evt["uid"] = "{0}/meetups/{1}".format(site.domain, meetup.pk)
             cal.add_component(evt)
-        response = HttpResponse(cal.to_ical(), content_type='text/calendar')
-        response['Content-Disposition'] = 'attachment;filename=pygraz.ics'
+        response = HttpResponse(cal.to_ical(), content_type="text/calendar")
+        response["Content-Disposition"] = "attachment;filename=pygraz.ics"
         return response
-

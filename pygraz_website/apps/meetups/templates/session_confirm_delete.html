@@ -1,0 +1,9 @@
+{% extends "meetups/base.html" %}
+{% block body %}
+    <form method="POST">
+        {% csrf_token %}
+        <p>Bist du sicher, dass du diese Session löschen möchtest?</p>
+        <button data-icon="✓" class="iconb btn" type="submit">Ja</button>
+        <a class="cancel btn" href="{{ cancel_url }}">Abbrechen</a>
+    </form>
+{% endblock body %}

@@ -1,0 +1,40 @@
+{% extends "companies/base.html" %}
+
+{% block body %}
+    <div id="info">
+        <p>Auf dieser Seite werden Firmen aus und in Graz aufgelistet, die Python verwenden.</p>
+        <p>Falls Sie eine für eine Firma arbeiten, die Python verwendet, hier jedoch noch nicht aufscheint,
+            würden wir uns sehr freuen, wenn Sie <a href="{% url 'submit-company' %}">dieses Formular</a> ausfüllen könnten.</p>
+    </div>
+    {% if company_list %}
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Adresse</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for company in company_list %}
+        <tr>
+            <td><a href="{% url 'company-details' pk=company.pk %}">{{ company.name }}</a></td>
+            <td>{{ company.address_line }}, {{ company.postal_code }} {{company.city }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>Keine Firmen gefunden.</p>
+    {% endif %}
+
+    {% if unapproved_companies %}
+    <section id="unapproved">
+        <h2>Noch nicht freigeschaltene Einträge</h2>
+        <ul>
+            {% for company in unapproved_companies %}
+            <li><a href="{% url 'company-details' pk=company.pk %}">{{ company.name }}</a></li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+{% endblock %}

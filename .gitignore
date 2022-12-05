@@ -20,3 +20,4 @@ Procfile
 .tox
 .coverage
 htmlcov
+/database.db

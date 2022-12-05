@@ -1,19 +1,18 @@
-from django.db import models
 from django.contrib.auth import models as auth_models
-from django.utils.translation import ugettext_lazy as _
-from django.utils import timezone
-from django.core.urlresolvers import reverse
 from django.contrib.sites.models import Site
 from django.core import validators
+from django.db import models
+from django.urls import reverse
+from django.utils import timezone
+from django.utils.translation import gettext_lazy as _
 
 from pygraz_website.apps.accounts import contents
 
-
 RSVP_STATUS_CHOICES = (
-    ('not_coming', _("Not coming")),
-    ('coming', _("Coming")),
-    ('maybe', _("Maybe"))
-    )
+    ("not_coming", _("Not coming")),
+    ("coming", _("Coming")),
+    ("maybe", _("Maybe")),
+)
 
 
 class MeetupManager(models.Manager):
@@ -49,21 +48,24 @@ class Location(models.Model):
         return self.name
 
     class Meta(object):
-        verbose_name = _('location')
-        verbose_name_plural = _('locations')
+        verbose_name = _("location")
+        verbose_name_plural = _("locations")
 
 
 class Meetup(models.Model):
     start_date = models.DateTimeField()
-    location = models.ForeignKey(Location, blank=True, null=True)
+    location = models.ForeignKey(Location, blank=True, null=True, on_delete=models.CASCADE)
     meetupcom_id = models.CharField(blank=True, null=True, max_length=20)
     gplus_id = models.CharField(blank=True, null=True, max_length=50)
     description = models.TextField(blank=True, null=True)
     notes = models.TextField(blank=True, null=True)
-    attendee_count = models.IntegerField(null=True, blank=True,
+    attendee_count = models.IntegerField(
+        null=True,
+        blank=True,
         validators=[
-                validators.MinValueValidator(0),
-            ])
+            validators.MinValueValidator(0),
+        ],
+    )
 
     objects = MeetupManager()
 
@@ -71,21 +73,23 @@ class Meetup(models.Model):
         return unicode(self.start_date)
 
     def get_absolute_url(self):
-        return reverse('view-meetup', kwargs={
-            'year': "{0:0>4d}".format(self.start_date.year),
-            'month': "{0:0>2}".format(self.start_date.month),
-            'day': "{0:0>2d}".format(self.start_date.day),
-            })
+        return reverse(
+            "view-meetup",
+            kwargs={
+                "year": "{0:0>4d}".format(self.start_date.year),
+                "month": "{0:0>2}".format(self.start_date.month),
+                "day": "{0:0>2d}".format(self.start_date.day),
+            },
+        )
 
     def get_permalink(self):
-        return 'http://{0}{1}'.format(
+        return "http://{0}{1}".format(
             Site.objects.get_current().domain,
-            reverse('meetup-permalink', kwargs={
-                'pk': self.pk
-            }))
+            reverse("meetup-permalink", kwargs={"pk": self.pk}),
+        )
 
     def get_meetupcom_url(self):
-        return 'http://www.meetup.com/PyGRAZ/events/{}'.format(self.meetupcom_id)
+        return "http://www.meetup.com/PyGRAZ/events/{}".format(self.meetupcom_id)
 
     def is_in_future(self, now=None):
         if now is None:
@@ -93,25 +97,40 @@ class Meetup(models.Model):
         return self.start_date > now
 
     class Meta(object):
-        verbose_name = 'Meetup'
-        verbose_name_plural = 'Meetups'
-        ordering = ('-start_date',)
+        verbose_name = "Meetup"
+        verbose_name_plural = "Meetups"
+        ordering = ("-start_date",)
 
 
 class Session(models.Model):
     title = models.CharField("Titel", max_length=255)
     abstract = models.TextField("Kurzbeschreibung")
-    meetup = models.ForeignKey(Meetup, verbose_name="Meetup", blank=True,
-        null=True, related_name='sessions')
-    speaker_name = models.CharField("Vortragender", max_length=100, blank=True,
-        null=True)
+    meetup = models.ForeignKey(
+        Meetup,
+        verbose_name="Meetup",
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+        related_name="sessions",
+    )
+    speaker_name = models.CharField("Vortragender", max_length=100, blank=True, null=True)
     speaker_email = models.EmailField("E-Mail-Adresse", blank=True, null=True)
-    speaker = models.ForeignKey(auth_models.User, verbose_name="Vortragender",
-        blank=True, null=True)
+    speaker = models.ForeignKey(
+        auth_models.User,
+        verbose_name="Vortragender",
+        blank=True,
+        null=True,
+        on_delete=models.CASCADE,
+    )
     slides_url = models.URLField("Folien-URL", blank=True, null=True)
     notes = models.TextField("Notizen", blank=True, null=True)
-    type = models.ForeignKey('SessionType', verbose_name="Vortragsart",
-                             blank=True, null=True, on_delete=models.SET_NULL)
+    type = models.ForeignKey(
+        "SessionType",
+        verbose_name="Vortragsart",
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL,
+    )
 
     objects = SessionManager()
 
@@ -119,27 +138,25 @@ class Session(models.Model):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('view-session', kwargs={'pk': self.pk})
+        return reverse("view-session", kwargs={"pk": self.pk})
 
     def get_permalink(self):
-        return 'http://{0}{1}'.format(
-            Site.objects.get_current(),
-            self.get_absolute_url())
+        return "http://{0}{1}".format(Site.objects.get_current(), self.get_absolute_url())
 
     def get_speaker_name(self):
         if self.speaker:
             firstname = self.speaker.first_name
             lastname = self.speaker.last_name
             if firstname is not None and lastname is not None:
-                return '{0} {1}'.format(firstname, lastname)
+                return "{0} {1}".format(firstname, lastname)
             if firstname is not None:
                 return firstname
             return self.speaker.username
         return self.speaker_name
 
     class Meta(object):
-        verbose_name = 'Session'
-        verbose_name_plural = 'Sessions'
+        verbose_name = "Session"
+        verbose_name_plural = "Sessions"
 
 
 class SessionType(models.Model):
@@ -150,8 +167,8 @@ class SessionType(models.Model):
         return self.name
 
     class Meta(object):
-        verbose_name = 'Session type'
-        verbose_name_plural = 'Session types'
+        verbose_name = "Session type"
+        verbose_name_plural = "Session types"
 
 
 class SessionContentProxy(contents.BaseProxy):
@@ -160,6 +177,7 @@ class SessionContentProxy(contents.BaseProxy):
 
     def get_queryset(self):
         return Session.objects.filter(speaker=self.request.user)
+
 
 contents.register(SessionContentProxy)
 
@@ -173,14 +191,17 @@ class RSVP(models.Model):
     The status can be either coming, not coming, maybe or unknown (represented
     by a null value).
     """
-    status = models.CharField(_("Status"), choices=RSVP_STATUS_CHOICES,
-        null=True, blank=True, max_length=20)
-    remote_username = models.CharField(_("Username"), null=True, blank=True,
-        max_length=100)
-    remote_uid = models.CharField(_("User ID"), null=True, blank=True,
-        max_length=100)
-    meetup = models.ForeignKey("Meetup", null=False, verbose_name=_("Meetup"),
-        related_name='rsvps')
+
+    status = models.CharField(_("Status"), choices=RSVP_STATUS_CHOICES, null=True, blank=True, max_length=20)
+    remote_username = models.CharField(_("Username"), null=True, blank=True, max_length=100)
+    remote_uid = models.CharField(_("User ID"), null=True, blank=True, max_length=100)
+    meetup = models.ForeignKey(
+        "Meetup",
+        null=False,
+        verbose_name=_("Meetup"),
+        on_delete=models.CASCADE,
+        related_name="rsvps",
+    )
     source = models.CharField(max_length=20, blank=True, null=True)
 
     @property
@@ -189,7 +210,7 @@ class RSVP(models.Model):
 
     @property
     def url(self):
-        return 'http://www.meetup.com/members/{0}/'.format(self.remote_uid)
+        return "http://www.meetup.com/members/{0}/".format(self.remote_uid)
 
     class Meta(object):
         verbose_name = _("RSVP")

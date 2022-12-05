@@ -1,12 +1,11 @@
-from django.conf.urls import url
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.decorators import login_required
+from django.urls import path
 
 # from userena import settngs as userena_settings
 from userena import views as userena_views
 
-from . import forms
-from . import views
+from . import forms, views
 
 
 def merge_dicts(a, b):
@@ -17,49 +16,65 @@ def merge_dicts(a, b):
 
 
 urlpatterns = [
-    url(r'^signin/$',
+    path(
+        "signin/",
         userena_views.signin,
-        {'auth_form': forms.AuthenticationForm},
-        name='userena_signin'),
-    url(r'^signup/$',
+        {"auth_form": forms.AuthenticationForm},
+        name="userena_signin",
+    ),
+    path(
+        "signup/",
         userena_views.signup,
-        {'signup_form': forms.SignupForm},
-        name='userena_signup'),
-    url(r'^(?P<username>[\.\w]+)/email/$',
+        {"signup_form": forms.SignupForm},
+        name="userena_signup",
+    ),
+    path(
+        "<str:username>/email/",
         userena_views.email_change,
-        {'email_form': forms.ChangeEmailForm},
-        name='userena_email_change'),
-    url(r'^(?P<username>[\.\w]+)/password/$',
+        {"email_form": forms.ChangeEmailForm},
+        name="userena_email_change",
+    ),
+    path(
+        "<str:username>/password/",
         userena_views.password_change,
-        {'pass_form': forms.PasswordChangeForm},
-        name='userena_password_change'),
-    url(r'^password/reset/$',
-        auth_views.password_reset,
+        {"pass_form": forms.PasswordChangeForm},
+        name="userena_password_change",
+    ),
+    path(
+        "password/reset/",
+        auth_views.PasswordResetView.as_view(),
         merge_dicts(
             {
-                'template_name': 'userena/password_reset_form.html',
-                'email_template_name': 'userena/emails/password_reset_message.txt',
-                'password_reset_form': forms.PasswordResetForm,
-                'extra_context': {'without_usernames': False}
+                "template_name": "userena/password_reset_form.html",
+                "email_template_name": "userena/emails/password_reset_message.txt",
+                "password_reset_form": forms.PasswordResetForm,
+                "extra_context": {"without_usernames": False},
             },
-            { 'post_reset_redirect': 'userena_password_reset_done' }
+            {"post_reset_redirect": "userena_password_reset_done"},
         ),
-        name='userena_password_reset'),
-    url(r'^password/reset/confirm/(?P<%s>[0-9A-Za-z]+)-(?P<token>.+)/$' % 'uidb64',
-        auth_views.password_reset_confirm,
+        name="userena_password_reset",
+    ),
+    path(
+        "password/reset/confirm/uidb64-<str:token>/",
+        auth_views.PasswordResetConfirmView.as_view(),
         merge_dicts(
             {
-                'template_name': 'userena/password_reset_confirm_form.html',
-                'set_password_form': forms.SetPasswordForm,
+                "template_name": "userena/password_reset_confirm_form.html",
+                "set_password_form": forms.SetPasswordForm,
             },
-            {'post_reset_redirect': 'userena_password_reset_complete'}
+            {"post_reset_redirect": "userena_password_reset_complete"},
         ),
-        name='userena_password_reset_confirm'),
-    url(r'^(?P<username>[\.\w]+)/edit/$',
+        name="userena_password_reset_confirm",
+    ),
+    path(
+        "<str:username>/edit/",
         userena_views.profile_edit,
-        {'edit_profile_form': forms.EditProfileForm},
-        name='userena_profile_edit'),
-    url(r'^(?P<username>[\.\w]+)/contents/$',
+        {"edit_profile_form": forms.EditProfileForm},
+        name="userena_profile_edit",
+    ),
+    path(
+        "<str:username/contents/",
         login_required(views.MyContentsView.as_view()),
-        name='my_contents'),
+        name="my_contents",
+    ),
 ]

@@ -1,0 +1,7 @@
+{% extends "userena/base_userena.html" %}
+{% load crispy_forms_tags %}
+{% block page_class %}fullpage-form{% endblock %}
+{% block content %}
+    <h1>Profil ändern</h1>
+    {% crispy form %}
+{% endblock content %}

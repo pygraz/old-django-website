@@ -1,0 +1,5 @@
+Eine neue Firma wurde angelegt: {{ company.name }}
+
+Beschreibung:
+
+{{ company.description }}

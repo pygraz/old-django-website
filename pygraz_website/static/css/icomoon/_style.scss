@@ -12,38 +12,40 @@
  */
 
 @font-face {
-	font-family: 'IcoMoon';
-	src: url('icomoon/IcoMoon.eot');
-	src: url('icomoon/IcoMoon.eot?#iefix') format('embedded-opentype'),
-		url('icomoon/IcoMoon.svg#IcoMoon') format('svg'),
-		url('icomoon/IcoMoon.woff') format('woff'),
-		url('icomoon/IcoMoon.ttf') format('truetype');
-	font-weight: normal;
-	font-style: normal;
+  font-family: "IcoMoon";
+  src: url("icomoon/IcoMoon.eot");
+  src: url("icomoon/IcoMoon.eot?#iefix") format("embedded-opentype"),
+    url("icomoon/IcoMoon.svg#IcoMoon") format("svg"),
+    url("icomoon/IcoMoon.woff") format("woff"),
+    url("icomoon/IcoMoon.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
 }
 
 /* Add the following classes to your stylesheet if you want to use data attributes for inserting your icons */
-.iconb:before, .icona:after {
-	font-family: 'IcoMoon';
-	content: attr(data-icon);
-	font-weight: normal;
+.iconb:before,
+.icona:after {
+  font-family: "IcoMoon";
+  content: attr(data-icon);
+  font-weight: normal;
 }
 
 /* Add the following CSS properties to your stylesheet if you want to have a class per icon */
-[class^="icon-"], [class*=" icon-"] {
-	font-family: 'IcoMoon';
-	font-style: normal;
+[class^="icon-"],
+[class*=" icon-"] {
+  font-family: "IcoMoon";
+  font-style: normal;
 }
 
 .icon-link:before {
-	content: "\2192";
+  content: "\2192";
 }
 .icon-clock:before {
-	content: "\25f7";
+  content: "\25f7";
 }
 .icon-pencil:before {
-	content: "\270d";
+  content: "\270d";
 }
 .icon-remove:before {
-	content: "\267d";
+  content: "\267d";
 }

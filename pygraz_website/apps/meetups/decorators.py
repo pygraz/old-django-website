@@ -9,4 +9,5 @@ def allow_only_staff_or_author_during_submission(method):
         if user.is_superuser or user.is_staff or obj.speaker is not None and user == obj.speaker:
             return method(self, request, *args, **kwargs)
         return HttpResponseForbidden()
+
     return _func

@@ -1,0 +1,9 @@
+{% extends "userena/base_userena.html" %}
+{% load crispy_forms_tags %}
+{% block page_class %}fullpage-form{% endblock %}
+{% block title %}E-Mail ändern « {% endblock %}
+{% block content %}
+    <h1>E-Mail ändern</h1>
+    <p>Deine aktuelle E-Mail-Adresse lautet {{ user.email }}.</p>
+    {% crispy form %}
+{% endblock content %}

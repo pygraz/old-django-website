@@ -1,0 +1,6 @@
+Es wurde eine neue Session eingetragen:
+
+Title: {{ session.title }}
+Vortragender: {% if session.speaker %}{{ session.speaker }}{% else %}{{ session.speaker_name }}{% endif %}
+
+{{ session_url }}

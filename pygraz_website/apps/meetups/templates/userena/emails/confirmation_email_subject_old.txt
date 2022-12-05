@@ -1,0 +1,2 @@
+{% load i18n %}
+{% blocktrans with site.name as site %}Möchtest du deine E-Mail-Adresse auf {{ site }} ändern?{% endblocktrans %}

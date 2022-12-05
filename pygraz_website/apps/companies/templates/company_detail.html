@@ -1,0 +1,52 @@
+{% extends "companies/base.html" %}
+{% load markdown_tags %}
+{% block page_class %}company-details{% endblock %}
+{% block body %}
+    <h1>Firma: {{ company.name }} {% if not company.approved %}(nicht freigeschalten){% endif %}</h1>
+    <div id="map"></div>
+    <div class="meta">
+        <dl>
+            <dt>Website:</dt>
+            <dd><a href="{{ company.website }}" rel="external" target="_blank">{{ company.website|truncatechars:50 }}</a></dd>
+        </dl>
+        <dl id="address">
+            <dt>Adresse:</dt>
+            <dd>{{ company.address_line}}, {{ company.postal_code }} {{ company.city }}, {{ company.country }}</dd>
+        </dl>
+    </div>
+    {% if company.description %}
+    <div class="description">{{ company.description|markdown }}</div>
+    {% endif %}
+    {% if is_editor %}
+    <ul class="actions">
+        <li><a class="iconb" data-icon="✍" href="{% url 'update-company' pk=company.pk %}">Editieren</a></li>
+    </ul>
+    {% endif %}
+{% endblock body %}
+{% block tail %}
+<script type="text/javascript">
+    (function() {
+        var mapOptions = {
+            zoom: 15,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({
+            'address': $('#address > dd').text()
+        }, function(results, status) {
+            if (status !== google.maps.GeocoderStatus.OK) {
+                console.log(status);
+                $('#map').remove();
+                return;
+            }
+            map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+        });
+
+    }());
+</script>
+{% endblock %}
