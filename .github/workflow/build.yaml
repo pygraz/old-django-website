@@ -1,0 +1,54 @@
+# Continuous integration build for pyGRAZ website.
+name: Build
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.10"]
+    env:
+      MAIN_PYTHON_VERSION: "3.8" # same as Ubuntu 20 LTS
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install requirements
+        run: |
+          pip install -r -requirements/testing.txt
+      - name: Run the test suite
+        run: |
+          coverage run manage-testing.py test pygraz_website.apps.accounts pygraz_website.apps.companies pygraz_website.apps.core pygraz_website.apps.meetups
+      - name: Build coverage report
+        run: |
+          coverage html
+          coverage report
+
+  check-style:
+    runs-on: ubuntu-latest
+    # Disable pre-commit check on main and production to prevent
+    # pull request merges to fail with don't commit to branch.
+    if: github.ref != 'refs/heads/main' && github.ref != 'refs/heads/production'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install pre-commit
+        run: |
+          sudo apt-get install python3
+          python -m pip install --upgrade pip
+          pip install pre-commit
+      - name: Load cached pre-commit
+        id: cached-pre-commit
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ runner.os }}-${{ hashFiles('.pre-commit-config.yaml') }}
+      - name: Install pre-commit hooks
+        if: steps.cached-pre-commit.outputs.cache-hit != 'true'
+        run: pre-commit install --install-hooks
+      - name: Check coding style
+        run: pre-commit run --all-files
