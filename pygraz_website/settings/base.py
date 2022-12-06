@@ -123,7 +123,6 @@ TEMPLATES = [
                     "django.contrib.messages.context_processors.messages",
                     "django.contrib.auth.context_processors.auth",
                     "django.template.context_processors.request",
-                    "pygraz_website.context_processors.googlemaps",
                     "pygraz_website.context_processors.disqus",
                 ]
             ),
@@ -147,7 +146,6 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "flat",
     "django.contrib.admin",
     "django_extensions",
     "easy_thumbnails",
@@ -213,4 +211,3 @@ MEETUPS_CALENDAR_NAME = "PyGRAZ-Meetups"
 MEETUPCOM_API_KEY = os.environ.get("DJANGO_MEETUPCOM_API_KEY")
 NOCAPTCHA = True
 RECAPTCHA_USE_SSL = True
-GOOGLEMAPS_API_KEY = os.environ.get("DJANGO_GOOGLEMAPS_API_KEY")

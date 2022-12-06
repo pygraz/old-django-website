@@ -12,4 +12,5 @@ def googlemaps(request):
     """
     Adds the Google Maps API key to the context.
     """
-    return {"GOOGLEMAPS_API_KEY": settings.GOOGLEMAPS_API_KEY}
+    assert False
+    #    return {"GOOGLEMAPS_API_KEY": settings.GOOGLEMAPS_API_KEY}
