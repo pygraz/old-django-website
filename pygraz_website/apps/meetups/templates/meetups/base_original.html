@@ -10,8 +10,8 @@
 <a href="#primary-nav" id="nav-helper">Menü</a>
 <nav id="primary-nav"><div class="w">
     <ul>
-        <li class="{% block nav-start %}{% endblock %}" ><a href="/">Start</a></li>
-        <li class="{% block nav-meetups %}{% endblock %}"><a href="/#past-meetups">Meetups</a> (<a href="{% url "ical" %}">iCal</a>)</li>
+        <li class="{% block nav-start %}{% endblock %}" ><a href="/pygraz_website/static">Start</a></li>
+        <li class="{% block nav-meetups %}{% endblock %}"><a href="/pygraz_website/static#past-meetups">Meetups</a> (<a href="{% url "ical" %}">iCal</a>)</li>
         <li class="{% block nav-companies %}{% endblock %}"><a href="/companies/">Firmen</a></li>
         <li class=""><a href="http://groups.google.com/group/python-graz/" rel="external">Mailinglist</a></li>
         <li class=""><a href="https://plus.google.com/u/0/b/101185345132127945047/" rel="external">Google+</a></li>
@@ -33,7 +33,7 @@
 </div></nav>
 <div class="container">
     <header>
-        <a id="logo" href="/"><img src="/static/imgs/logo.png" style="width: 276px; height: 80px" alt="PyGRAZ" /></a>
+        <a id="logo" href="/pygraz_website/static"><img src="/static/imgs/logo.png" style="width: 276px; height: 80px" alt="PyGRAZ" /></a>
         <p id="mission"><b>PyGRAZ</b> ist eine Usergroup mit die Python-Programmiersprache in Graz. Wir treffen uns regelmässig <em>am ersten Dienstag</em> im Monat entweder
             im realraum oder im Gösserbräu.</p>
     </header>

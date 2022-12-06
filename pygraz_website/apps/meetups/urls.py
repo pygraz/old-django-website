@@ -11,7 +11,7 @@ urlpatterns = [
     ),
     path("<int:pk>/", views.DetailView.as_view(), name="meetup-permalink"),
     path("sessions/submit/", views.SubmitSession.as_view(), name="submit-session"),
-    path("sessions/<int:pk>", views.ViewSession.as_view(), name="view-session"),
+    path("sessions/<int:pk>/", views.ViewSession.as_view(), name="view-session"),
     path(
         "sessions/<int:pk>/edit/",
         login_required(views.EditSession.as_view()),

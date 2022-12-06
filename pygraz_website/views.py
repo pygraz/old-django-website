@@ -26,7 +26,7 @@ def index(request):
     submission_form.helper.form_action = reverse("submit-session") + "?next=/"
     return render(
         request,
-        "index.html",
+        "meetups/index.html",
         {
             "next_meetup": next_meetup,
             "past_meetups": past_meetups,

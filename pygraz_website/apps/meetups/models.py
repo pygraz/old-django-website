@@ -44,7 +44,7 @@ class Location(models.Model):
     website = models.URLField(blank=True, null=True)
     address = models.CharField(max_length=255, blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta(object):
@@ -69,8 +69,8 @@ class Meetup(models.Model):
 
     objects = MeetupManager()
 
-    def __unicode__(self):
-        return unicode(self.start_date)
+    def __str__(self):
+        return str(self.start_date)
 
     def get_absolute_url(self):
         return reverse(
@@ -134,7 +134,7 @@ class Session(models.Model):
 
     objects = SessionManager()
 
-    def __unicode__(self):
+    def __str__(self):
         return self.title
 
     def get_absolute_url(self):
@@ -163,7 +163,7 @@ class SessionType(models.Model):
     name = models.CharField("Name", max_length=30, unique=True)
     description = models.TextField("Beschreibung", blank=True, null=True)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta(object):

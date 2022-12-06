@@ -61,8 +61,8 @@ class DetailView(generic_views.DetailView):
             )
             date_end = date_start + datetime.timedelta(days=1)
             local_tz = timezone.get_default_timezone()
-            date_start = local_tz.localize(date_start)
-            date_end = local_tz.localize(date_end)
+            date_start = date_start.replace(tzinfo=local_tz)
+            date_end = date_end.replace(tzinfo=local_tz)
             utc_date_start = date_start.astimezone(pytz.utc)
             utc_date_end = date_end.astimezone(pytz.utc)
             result = self.model.objects.filter(
@@ -97,7 +97,7 @@ class SubmitSession(NextRedirectMixin, generic_views.CreateView):
 
     def form_valid(self, form):
         session = form.save(commit=False)
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             session.speaker = self.request.user
         session.save()
         emails.notify_admins_for_new_session(session)

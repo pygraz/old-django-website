@@ -1,9 +1,10 @@
 import datetime
+import unittest
 
 import pytz
 from django.core.exceptions import ValidationError
 from django.test import TestCase
-from django.utils import timezone, unittest
+from django.utils import timezone
 
 from .. import models
 
