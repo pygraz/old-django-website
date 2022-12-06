@@ -11,7 +11,7 @@ class ListCompaniesView(ListView):
 
     def get_context_data(self, **kwargs):
         data = super(ListCompaniesView, self).get_context_data(**kwargs)
-        if hasattr(self.request, "user") and self.request.user.is_authenticated():
+        if hasattr(self.request, "user") and self.request.user.is_authenticated:
             data["unapproved_companies"] = self.request.user.companies.filter(approved=False)
         return data
 

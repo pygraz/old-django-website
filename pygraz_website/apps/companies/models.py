@@ -29,7 +29,7 @@ class Company(models.Model):
     def get_absolute_url(self):
         return reverse("company-details", kwargs={"pk": self.pk})
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta(object):

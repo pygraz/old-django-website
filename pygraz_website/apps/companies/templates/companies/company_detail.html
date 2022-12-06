@@ -18,9 +18,12 @@
     <div class="description">{{ company.description|markdown }}</div>
     {% endif %}
     {% if is_editor %}
+    {# FIXME#40: Enable text and link to company update form. #}
+    {% comment %}
     <ul class="actions">
         <li><a class="iconb" data-icon="✍" href="{% url 'update-company' pk=company.pk %}">Editieren</a></li>
     </ul>
+    {% endcomment %}
     {% endif %}
 {% endblock body %}
 {% block tail %}

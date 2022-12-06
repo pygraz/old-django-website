@@ -1,6 +1,8 @@
+from http import HTTPStatus
+
 import arrow
 from django.contrib.auth.models import User
-from django.http import HttpResponseNotFound
+from django.http import Http404, HttpResponseNotFound
 from django.test import TestCase
 from django.utils import timezone
 
@@ -31,8 +33,8 @@ class MeetupViewTests(TestCase):
         """
         Tests that a request for a not-existing meetup results in a 404 page.
         """
-        self.assertTrue(isinstance(self.client.get("/meetups/123/"), HttpResponseNotFound))
-        self.assertTrue(isinstance(self.client.get("/meetups/2015-05-01/"), HttpResponseNotFound))
+        self.assertEqual(self.client.get("/meetups/123/").status_code, HTTPStatus.NOT_FOUND)
+        self.assertEqual(self.client.get("/meetups/2015-05-01/").status_code, HTTPStatus.NOT_FOUND)
 
     def test_view_existing(self):
         """
@@ -47,15 +49,16 @@ class MeetupViewTests(TestCase):
         The primary URL of a meetup is one containing its date for better SEO.
         """
         date = arrow.get(self.past_meetup.start_date).format("YYYY-MM-DD")
-        self.assertEqual(200, self.client.get("/meetups/{}".format(date)).status_code)
+        response = self.client.get("/meetups/{}/".format(date))
+        self.assertEqual(200, response.status_code)
 
     def test_upcoming_on_frontpage(self):
         """
         Tests that the next meetup is displayed on the frontpage.
         """
         resp = self.client.get("/")
-        self.assertEquals(200, resp.status_code)
-        self.assertEquals(self.future_meetup, resp.context["next_meetup"])
+        self.assertEqual(200, resp.status_code)
+        self.assertEqual(self.future_meetup, resp.context["next_meetup"])
 
 
 class SessionViewTests(TestCase):
@@ -66,14 +69,14 @@ class SessionViewTests(TestCase):
 
     def test_anonymous_view(self):
         resp = self.client.get("/meetups/sessions/{}/".format(self.session.pk))
-        self.assertEqual(200, resp.status_code)
+        self.assertEqual(resp.status_code, HTTPStatus.OK)
         self.assertFalse(resp.context["can_edit"])
         self.assertFalse(resp.context["can_delete"])
 
     def test_author_view(self):
         self.client.login(username="username", password="password")
         resp = self.client.get("/meetups/sessions/{}/".format(self.session.pk))
-        self.assertEqual(200, resp.status_code)
+        self.assertEqual(resp.status_code, HTTPStatus.OK)
         self.assertTrue(resp.context["can_edit"])
         self.assertTrue(resp.context["can_delete"])
 

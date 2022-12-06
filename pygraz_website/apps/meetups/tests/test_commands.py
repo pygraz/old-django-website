@@ -4,16 +4,19 @@ import arrow
 import requests_mock
 from django.core.management import call_command
 from django.test import TestCase
+from django.utils import timezone
 
 from .. import models
 
 
 class FetchRsvpsCommandTests(TestCase):
     def setUp(self):
-        start = arrow.utcnow().replace(weeks=+1, hour=18)
+
+        future_year = timezone.now().year + 2
+        start = arrow.utcnow().replace(year=future_year, month=1, day=2, hour=18)
         self.meetup = models.Meetup(start_date=start.datetime, meetupcom_id="test")
         self.meetup.save()
-        models.Meetup(start_date=start.replace(months=+1).datetime).save()
+        models.Meetup(start_date=start.replace(year=future_year, month=2).datetime).save()
         self.previous_rsvp = models.RSVP(
             meetup=self.meetup, status="coming", remote_username="test", remote_uid="test", source="meetupcom"
         )
@@ -25,7 +28,7 @@ class FetchRsvpsCommandTests(TestCase):
             with self.assertRaises(Exception):
                 call_command("fetch_rsvps")
             existing_rsvps = models.RSVP.objects.filter(meetup=self.meetup).all()
-            self.assertEquals(len(list(existing_rsvps)), 1)
+            self.assertEqual(len(list(existing_rsvps)), 1)
 
     def test_success(self):
         with requests_mock.Mocker() as mock:
