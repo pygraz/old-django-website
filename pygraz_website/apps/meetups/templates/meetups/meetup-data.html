@@ -70,6 +70,9 @@
             {% if meetup.location.address %}
                 <p class="address">{{ meetup.location.address }}</p>
             {% endif %}
+            {% if meetup.location.map_image %}
+                <img src="{{ meetup.location.map_image.url }}" alt="Birdview image to location {{ meetup.location.name }}" />
+            {% endif %}
             <div class="description">{{ meetup.location.description }}</div>
         {% else %}
             {% if meetup.is_in_future %}

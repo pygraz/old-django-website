@@ -43,6 +43,7 @@ class Location(models.Model):
     description = models.TextField(blank=True, null=True)
     website = models.URLField(blank=True, null=True)
     address = models.CharField(max_length=255, blank=True, null=True)
+    map_image = models.ImageField(null=True, blank=True)
 
     def __str__(self):
         return self.name
