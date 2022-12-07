@@ -31,9 +31,8 @@ jobs:
 
   check-style:
     runs-on: ubuntu-latest
-    # Disable pre-commit check on main and production to prevent
-    # pull request merges to fail with don't commit to branch.
-    if: github.ref != 'refs/heads/main' && github.ref != 'refs/heads/production'
+    # Disable pre-commit check on master to prevent "no-commit-to-branch" from failing.
+    if: github.ref != 'refs/heads/master' && github.ref != 'refs/heads/develop'
     steps:
       - uses: actions/checkout@v3
       - name: Install pre-commit
