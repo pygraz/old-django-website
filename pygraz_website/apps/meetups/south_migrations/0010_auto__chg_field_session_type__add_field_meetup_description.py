@@ -7,7 +7,6 @@ from south.v2 import SchemaMigration
 
 class Migration(SchemaMigration):
     def forwards(self, orm):
-
         # Changing field 'Session.type'
         db.alter_column(
             "meetups_session",
@@ -25,7 +24,6 @@ class Migration(SchemaMigration):
         )
 
     def backwards(self, orm):
-
         # Changing field 'Session.type'
         db.alter_column(
             "meetups_session",

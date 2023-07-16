@@ -1,4 +1,4 @@
 -r base.txt
 
-uWSGI==2.0.10
-opbeat==3.0.2
+uWSGI==2.0.21
+opbeat==3.6.1
