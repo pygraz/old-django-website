@@ -11,7 +11,6 @@ from .. import models
 
 class FetchRsvpsCommandTests(TestCase):
     def setUp(self):
-
         future_year = timezone.now().year + 2
         start = arrow.utcnow().replace(year=future_year, month=1, day=2, hour=18)
         self.meetup = models.Meetup(start_date=start.datetime, meetupcom_id="test")

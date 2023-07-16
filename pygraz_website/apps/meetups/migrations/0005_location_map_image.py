@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ("meetups", "0004_alter_meetup_location_alter_rsvp_meetup_and_more"),
     ]

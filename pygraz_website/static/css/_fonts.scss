@@ -8,7 +8,8 @@
   @font-face {
     font-family: "#{$name}";
     src: url("#{$filebase}.eot");
-    src: url("#{$filebase}.eot?#iefix") format("embedded-opentype"),
+    src:
+      url("#{$filebase}.eot?#iefix") format("embedded-opentype"),
       url("/static/fonts/#{$filebase}.woff") format("woff"),
       url("/static/fonts/#{$filebase}.ttf") format("truetype"),
       url("/static/fonts/#{$filebase}.svg##{$svgid}") format("svg");
