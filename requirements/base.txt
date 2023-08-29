@@ -8,7 +8,7 @@ django-guardian==2.4.0
 django-userena-ce==7.0.1
 easy-thumbnails==2.8.3
 python-postmark==0.5.8
-Markdown==3.4.1
+Markdown==3.4.4
 Pillow==10.0.0
 raven==6.10.0
 icalendar==5.0.7
