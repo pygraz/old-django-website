@@ -5,7 +5,7 @@ django-crispy-forms==1.14.0
 django-extensions==3.2.3
 django-flat-theme==1.1.4
 django-guardian==2.4.0
-django-userena-ce==7.0.1
+django-userena-ce==7.0.3
 easy-thumbnails==2.8.3
 python-postmark==0.5.8
 Markdown==3.4.1
