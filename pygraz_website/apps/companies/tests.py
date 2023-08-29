@@ -6,7 +6,7 @@ from guardian.shortcuts import assign_perm
 from . import models
 
 
-class CompanyTestsMixin(object):
+class CompanyTestsMixin:
     def setUp(self):
         self.approved = models.Company(
             name="Approved",

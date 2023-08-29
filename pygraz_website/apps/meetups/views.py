@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import collections
 import datetime
 from urllib.parse import urlparse
@@ -19,7 +18,7 @@ from .decorators import allow_only_staff_or_author_during_submission
 RSVPCollection = collections.namedtuple("RSVPCollection", "coming maybe not_coming")
 
 
-class NextRedirectMixin(object):
+class NextRedirectMixin:
     """
     A simple mixin for checking for a next parameter for redirects.
     """
@@ -39,7 +38,7 @@ class NextRedirectMixin(object):
         next = self.get_next_redirect()
         if next:
             return next
-        return super(NextRedirectMixin, self).get_success_url()
+        return super().get_success_url()
 
 
 class DetailView(generic_views.DetailView):
@@ -73,7 +72,7 @@ class DetailView(generic_views.DetailView):
             return result[0]
 
     def get_context_data(self, *args, **kwargs):
-        data = super(DetailView, self).get_context_data(*args, **kwargs)
+        data = super().get_context_data(*args, **kwargs)
         data["rsvps"] = self._get_rsvps()
         return data
 
@@ -114,7 +113,7 @@ class ViewSession(generic_views.DetailView):
     model = models.Session
 
     def get_context_data(self, **kwargs):
-        data = super(ViewSession, self).get_context_data(**kwargs)
+        data = super().get_context_data(**kwargs)
         can_delete = (
             self.request.user.is_superuser
             or self.request.user.is_staff
@@ -144,7 +143,7 @@ class EditSession(generic_views.UpdateView):
 
     @allow_only_staff_or_author_during_submission
     def dispatch(self, request, *args, **kwargs):
-        return super(EditSession, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
     def get_object(self):
         if hasattr(self, "object") and self.object:
@@ -153,7 +152,7 @@ class EditSession(generic_views.UpdateView):
 
     def form_valid(self, form):
         messages.success(self.request, "Session aktualisiert.")
-        return super(EditSession, self).form_valid(form)
+        return super().form_valid(form)
 
 
 class DeleteSession(NextRedirectMixin, generic_views.DeleteView):
@@ -169,18 +168,18 @@ class DeleteSession(NextRedirectMixin, generic_views.DeleteView):
         return get_object_or_404(self.model, pk=self.kwargs["pk"])
 
     def get_context_data(self, **kwargs):
-        data = super(DeleteSession, self).get_context_data(**kwargs)
+        data = super().get_context_data(**kwargs)
         data.update({"cancel_url": self.get_success_url()})
         return data
 
     def delete(self, request, *args, **kwargs):
-        response = super(DeleteSession, self).delete(request, *args, **kwargs)
+        response = super().delete(request, *args, **kwargs)
         messages.success(request, "Session gelöscht.")
         return response
 
     @allow_only_staff_or_author_during_submission
     def dispatch(self, request, *args, **kwargs):
-        return super(DeleteSession, self).dispatch(request, *args, **kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
 
 class ICalendarView(generic_views.View):
@@ -189,10 +188,10 @@ class ICalendarView(generic_views.View):
     """
 
     def get_meetup_summary(self, meetup):
-        return "PyGRAZ-Meetup am {0}".format(meetup.start_date.date())
+        return f"PyGRAZ-Meetup am {meetup.start_date.date()}"
 
     def get_meetup_description(self, meetup):
-        return """Details: https://{0}{1}""".format(Site.objects.get_current().domain, meetup.get_absolute_url())
+        return f"""Details: https://{Site.objects.get_current().domain}{meetup.get_absolute_url()}"""
 
     def get(self, request, *args, **kwargs):
         cal = icalendar.Calendar()
@@ -203,7 +202,7 @@ class ICalendarView(generic_views.View):
             evt.add("summary", self.get_meetup_summary(meetup))
             evt.add("description", self.get_meetup_description(meetup))
             evt.add("dtstart", meetup.start_date)
-            evt["uid"] = "{0}/meetups/{1}".format(site.domain, meetup.pk)
+            evt["uid"] = f"{site.domain}/meetups/{meetup.pk}"
             cal.add_component(evt)
         response = HttpResponse(cal.to_ical(), content_type="text/calendar")
         response["Content-Disposition"] = "attachment;filename=pygraz.ics"

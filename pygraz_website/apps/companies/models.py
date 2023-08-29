@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 import guardian.shortcuts
 from django.conf import settings
 from django.db import models
@@ -32,7 +31,7 @@ class Company(models.Model):
     def __str__(self):
         return self.name
 
-    class Meta(object):
+    class Meta:
         verbose_name = _("company")
         verbose_name_plural = _("companies")
         ordering = ("name",)

@@ -35,6 +35,12 @@ repos:
       - id: flake8
         additional_dependencies: ["pep8-naming==0.13.3"]
 
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v2.37.3
+    hooks:
+      - id: pyupgrade
+        args: ["--py38-plus"]
+
   # NOTE: This should be the last check to ensure everything else is checked
   #  even for the rare case a commit should go into one of the protected
   #  branches.

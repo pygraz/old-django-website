@@ -10,7 +10,7 @@ class ListCompaniesView(ListView):
     queryset = models.Company.objects.filter(approved=True)
 
     def get_context_data(self, **kwargs):
-        data = super(ListCompaniesView, self).get_context_data(**kwargs)
+        data = super().get_context_data(**kwargs)
         if hasattr(self.request, "user") and self.request.user.is_authenticated:
             data["unapproved_companies"] = self.request.user.companies.filter(approved=False)
         return data
@@ -20,7 +20,7 @@ class CompanyDetailsView(DetailView):
     model = models.Company
 
     def get_context_data(self, **kwargs):
-        data = super(CompanyDetailsView, self).get_context_data(**kwargs)
+        data = super().get_context_data(**kwargs)
         # Make sure that the company is approved or editable by the current
         # user.
         data["approved"] = self.object.approved
@@ -40,7 +40,7 @@ class SubmitCompanyView(CreateView):
     form_class = forms.CompanySubmissionForm
 
     def form_valid(self, form):
-        result = super(SubmitCompanyView, self).form_valid(form)
+        result = super().form_valid(form)
         self.object.editors.add(self.request.user)
         assign_perm("change_company", self.request.user, self.object)
         emails.notify_admins_for_approval(self.object)
@@ -56,7 +56,7 @@ class UpdateCompanyView(UpdateView):
     form_class = forms.CompanySubmissionForm
 
     def get_object(self, **kwargs):
-        obj = super(UpdateCompanyView, self).get_object(**kwargs)
+        obj = super().get_object(**kwargs)
         if not self.request.user.has_perm("change_company", obj):
             raise Http404("Company not found")
         return obj

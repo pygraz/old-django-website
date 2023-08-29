@@ -84,7 +84,7 @@ execute following command:
 compass watch
 ```
 
-This will compile the stylesheets using Compass and keep the process running so that changes the the .scss files are
+This will compile the stylesheets using Compass and keep the process running so that changes the .scss files are
 automatically compiled into .css files.
 
 ## Components not included
@@ -94,7 +94,7 @@ bundle it with the website's source code. For details on this font visit http://
 
 ## Deployment
 
-For deployments we are using an Ansible playbook which builds a production.zip
+For deployments, we are using an Ansible playbook which builds a production.zip
 and deploys that onto the target server:
 
 ```bash

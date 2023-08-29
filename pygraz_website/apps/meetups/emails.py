@@ -13,7 +13,7 @@ def notify_admins_for_new_session(session):
             "meetups/emails/new_session.txt",
             {
                 "session": session,
-                "session_url": "https://{0}{1}".format(current_site.domain, session.get_absolute_url()),
+                "session_url": f"https://{current_site.domain}{session.get_absolute_url()}",
             },
         ),
         fail_silently=False,
