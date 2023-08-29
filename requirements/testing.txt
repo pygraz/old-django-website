@@ -2,7 +2,7 @@
 
 coverage==6.5.0
 pytest-django==4.5.2
-pytest-xdist==3.1.0
+pytest-xdist==3.3.1
 pytest-cov==4.0.0
 pytest-order==1.0.1
 requests_mock==1.11.0
