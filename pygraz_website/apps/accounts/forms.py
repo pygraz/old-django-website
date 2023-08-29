@@ -7,7 +7,7 @@ from userena import forms as userena_forms
 
 class AuthenticationForm(userena_forms.AuthenticationForm):
     def __init__(self, *args, **kwargs):
-        super(AuthenticationForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Field("identification", autofocus="autofocus"),
@@ -19,7 +19,7 @@ class AuthenticationForm(userena_forms.AuthenticationForm):
 
 class ChangeEmailForm(userena_forms.ChangeEmailForm):
     def __init__(self, *args, **kwargs):
-        super(ChangeEmailForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Field("email", autofocus="autofocus"),
@@ -29,7 +29,7 @@ class ChangeEmailForm(userena_forms.ChangeEmailForm):
 
 class PasswordChangeForm(auth_forms.PasswordChangeForm):
     def __init__(self, *args, **kwargs):
-        super(PasswordChangeForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Field("old_password", autofocus="autofocus"),
@@ -41,7 +41,7 @@ class PasswordChangeForm(auth_forms.PasswordChangeForm):
 
 class PasswordResetForm(auth_forms.PasswordResetForm):
     def __init__(self, *args, **kwargs):
-        super(PasswordResetForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Field("email", autofocus="autofocus"),
@@ -51,7 +51,7 @@ class PasswordResetForm(auth_forms.PasswordResetForm):
 
 class SetPasswordForm(auth_forms.SetPasswordForm):
     def __init__(self, *args, **kwargs):
-        super(SetPasswordForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Field("new_password1", autofocus="autofocus"),
@@ -62,7 +62,7 @@ class SetPasswordForm(auth_forms.SetPasswordForm):
 
 class EditProfileForm(userena_forms.EditProfileForm):
     def __init__(self, *args, **kwargs):
-        super(EditProfileForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Field("first_name", autofocus="autofocus"),
@@ -75,7 +75,7 @@ class EditProfileForm(userena_forms.EditProfileForm):
 
 class SignupForm(userena_forms.SignupForm):
     def __init__(self, *args, **kwargs):
-        super(SignupForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Field("username"),

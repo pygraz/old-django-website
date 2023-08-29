@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import ButtonHolder, Field, Layout, Submit
 from django import forms
@@ -14,7 +13,7 @@ class AnonymousSessionSubmissionForm(forms.ModelForm):
     speaker_email = forms.EmailField(required=True, label="Deine E-Mail-Adresse")
     # captcha = ReCaptchaField(attrs={'theme': 'white'})
 
-    class Meta(object):
+    class Meta:
         model = models.Session
         fields = ("title", "abstract", "speaker_name", "speaker_email", "type")
         widgets = {"type": forms.RadioSelect}
@@ -24,7 +23,7 @@ class AnonymousSessionSubmissionForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(AnonymousSessionSubmissionForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         del self.fields["abstract"].widget.attrs["cols"]
         self.fields["type"].required = True
         self.fields["type"].empty_label = None
@@ -43,7 +42,7 @@ class AnonymousSessionSubmissionForm(forms.ModelForm):
 
 
 class RegisteredSessionSubmissionForm(forms.ModelForm):
-    class Meta(object):
+    class Meta:
         model = models.Session
         fields = (
             "title",
@@ -53,7 +52,7 @@ class RegisteredSessionSubmissionForm(forms.ModelForm):
         widgets = {"type": forms.RadioSelect}
 
     def __init__(self, *args, **kwargs):
-        super(RegisteredSessionSubmissionForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields["type"].required = True
         self.fields["type"].empty_label = None
         _extend_type_choice_labels(self.fields["type"])
@@ -68,7 +67,7 @@ class RegisteredSessionSubmissionForm(forms.ModelForm):
 
 
 class EditSessionForm(forms.ModelForm):
-    class Meta(object):
+    class Meta:
         model = models.Session
         fields = ("title", "abstract", "slides_url", "notes", "type")
         widgets = {"type": forms.RadioSelect}
@@ -78,7 +77,7 @@ class EditSessionForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(EditSessionForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields["type"].required = True
         self.fields["type"].empty_label = None
         _extend_type_choice_labels(self.fields["type"])
@@ -95,14 +94,14 @@ class EditSessionForm(forms.ModelForm):
 
 
 def _extend_type_choice_labels(field):
-    types = dict([(type_.pk, type_) for type_ in field.queryset.all()])
+    types = {type_.pk: type_ for type_ in field.queryset.all()}
     new_choices = []
     for choice in field.choices:
         if choice[0] != "":
             new_choices.append(
                 (
                     choice[0],
-                    mark_safe("{0}: <span>{1}</span>".format(choice[1], types[choice[0]].description)),
+                    mark_safe(f"{choice[1]}: <span>{types[choice[0]].description}</span>"),
                 )
             )
         else:

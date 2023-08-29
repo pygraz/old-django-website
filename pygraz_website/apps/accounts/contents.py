@@ -1,4 +1,4 @@
-class Registry(object):
+class Registry:
     """
     The content registry represents an index of all the model classes that
     are relevant for user content.
@@ -21,7 +21,7 @@ class Registry(object):
             yield proxy_cls(request, user)
 
 
-class BaseProxy(object):
+class BaseProxy:
     """
     Every content provider has to register a so-called contentproxy which
     should extend this base class.
@@ -35,7 +35,7 @@ class BaseProxy(object):
         self.request = request
         self.user = user
         if not hasattr(self, "items_template") or self.item_template is None:
-            self.items_template = "accounts/contents/{0}_items.html".format(self.model_class.__name__.lower())
+            self.items_template = f"accounts/contents/{self.model_class.__name__.lower()}_items.html"
 
     def get_queryset(self):
         return []

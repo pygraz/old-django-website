@@ -48,7 +48,7 @@ class Location(models.Model):
     def __str__(self):
         return self.name
 
-    class Meta(object):
+    class Meta:
         verbose_name = _("location")
         verbose_name_plural = _("locations")
 
@@ -77,27 +77,27 @@ class Meetup(models.Model):
         return reverse(
             "view-meetup",
             kwargs={
-                "year": "{0:0>4d}".format(self.start_date.year),
-                "month": "{0:0>2}".format(self.start_date.month),
-                "day": "{0:0>2d}".format(self.start_date.day),
+                "year": f"{self.start_date.year:0>4d}",
+                "month": f"{self.start_date.month:0>2}",
+                "day": f"{self.start_date.day:0>2d}",
             },
         )
 
     def get_permalink(self):
-        return "http://{0}{1}".format(
+        return "http://{}{}".format(
             Site.objects.get_current().domain,
             reverse("meetup-permalink", kwargs={"pk": self.pk}),
         )
 
     def get_meetupcom_url(self):
-        return "http://www.meetup.com/PyGRAZ/events/{}".format(self.meetupcom_id)
+        return f"http://www.meetup.com/PyGRAZ/events/{self.meetupcom_id}"
 
     def is_in_future(self, now=None):
         if now is None:
             now = timezone.now()
         return self.start_date > now
 
-    class Meta(object):
+    class Meta:
         verbose_name = "Meetup"
         verbose_name_plural = "Meetups"
         ordering = ("-start_date",)
@@ -142,20 +142,20 @@ class Session(models.Model):
         return reverse("view-session", kwargs={"pk": self.pk})
 
     def get_permalink(self):
-        return "http://{0}{1}".format(Site.objects.get_current(), self.get_absolute_url())
+        return f"http://{Site.objects.get_current()}{self.get_absolute_url()}"
 
     def get_speaker_name(self):
         if self.speaker:
             firstname = self.speaker.first_name
             lastname = self.speaker.last_name
             if firstname is not None and lastname is not None:
-                return "{0} {1}".format(firstname, lastname)
+                return f"{firstname} {lastname}"
             if firstname is not None:
                 return firstname
             return self.speaker.username
         return self.speaker_name
 
-    class Meta(object):
+    class Meta:
         verbose_name = "Session"
         verbose_name_plural = "Sessions"
 
@@ -167,7 +167,7 @@ class SessionType(models.Model):
     def __str__(self):
         return self.name
 
-    class Meta(object):
+    class Meta:
         verbose_name = "Session type"
         verbose_name_plural = "Session types"
 
@@ -211,8 +211,8 @@ class RSVP(models.Model):
 
     @property
     def url(self):
-        return "http://www.meetup.com/members/{0}/".format(self.remote_uid)
+        return f"http://www.meetup.com/members/{self.remote_uid}/"
 
-    class Meta(object):
+    class Meta:
         verbose_name = _("RSVP")
         verbose_name_plural = _("RSVPs")

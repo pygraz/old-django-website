@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 import easy_thumbnails.fields
 import userena.models
 from django.conf import settings

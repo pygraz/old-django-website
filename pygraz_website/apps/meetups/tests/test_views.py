@@ -40,7 +40,7 @@ class MeetupViewTests(TestCase):
         """
         Tests that a meetup can be accessed by its URL.
         """
-        resp = self.client.get("/meetups/{}/".format(self.past_meetup.pk))
+        resp = self.client.get(f"/meetups/{self.past_meetup.pk}/")
         self.assertEqual(200, resp.status_code)
         self.assertEqual(1, len(resp.context["rsvps"].coming))
 
@@ -49,7 +49,7 @@ class MeetupViewTests(TestCase):
         The primary URL of a meetup is one containing its date for better SEO.
         """
         date = arrow.get(self.past_meetup.start_date).format("YYYY-MM-DD")
-        response = self.client.get("/meetups/{}/".format(date))
+        response = self.client.get(f"/meetups/{date}/")
         self.assertEqual(200, response.status_code)
 
     def test_upcoming_on_frontpage(self):
@@ -68,14 +68,14 @@ class SessionViewTests(TestCase):
         self.session.save()
 
     def test_anonymous_view(self):
-        resp = self.client.get("/meetups/sessions/{}/".format(self.session.pk))
+        resp = self.client.get(f"/meetups/sessions/{self.session.pk}/")
         self.assertEqual(resp.status_code, HTTPStatus.OK)
         self.assertFalse(resp.context["can_edit"])
         self.assertFalse(resp.context["can_delete"])
 
     def test_author_view(self):
         self.client.login(username="username", password="password")
-        resp = self.client.get("/meetups/sessions/{}/".format(self.session.pk))
+        resp = self.client.get(f"/meetups/sessions/{self.session.pk}/")
         self.assertEqual(resp.status_code, HTTPStatus.OK)
         self.assertTrue(resp.context["can_edit"])
         self.assertTrue(resp.context["can_delete"])
@@ -91,19 +91,19 @@ class DeleteSessionViewTests(TestCase):
         self.session.save()
 
     def test_anonymous_view(self):
-        url = "/meetups/sessions/{}/delete/".format(self.session.pk)
+        url = f"/meetups/sessions/{self.session.pk}/delete/"
         resp = self.client.get(url)
-        self.assertRedirects(resp, "/accounts/signin/?next={}".format(url))
+        self.assertRedirects(resp, f"/accounts/signin/?next={url}")
 
     def test_otheruser_view(self):
         self.client.login(username="other_username", password="password")
-        url = "/meetups/sessions/{}/delete/".format(self.session.pk)
+        url = f"/meetups/sessions/{self.session.pk}/delete/"
         resp = self.client.get(url)
         self.assertEqual(403, resp.status_code)
 
     def test_author_view(self):
         self.client.login(username="username", password="password")
-        url = "/meetups/sessions/{}/delete/".format(self.session.pk)
+        url = f"/meetups/sessions/{self.session.pk}/delete/"
         resp = self.client.get(url)
         self.assertEqual(200, resp.status_code)
 
@@ -154,7 +154,7 @@ class EditSessionViewTests(TestCase):
     def test_anonymous_view(self):
         url = "/meetups/sessions/1/edit/"
         resp = self.client.get(url)
-        self.assertRedirects(resp, "/accounts/signin/?next={}".format(url))
+        self.assertRedirects(resp, f"/accounts/signin/?next={url}")
 
     def test_author_view(self):
         self.client.login(username="username", password="password")
