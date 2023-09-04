@@ -1,4 +1,4 @@
-Django>=4.0.9, <4.1
+Django>=4.0.9, <4.3
 psycopg2-binary==2.9.7
 pytz==2023.3
 django-crispy-forms==1.14.0
