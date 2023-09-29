@@ -11,6 +11,6 @@ python-postmark==0.6.0
 Markdown==3.4.4
 Pillow==10.0.1
 raven==6.10.0
-icalendar==5.0.7
+icalendar==5.0.9
 requests==2.31.0
 arrow==1.2.3
