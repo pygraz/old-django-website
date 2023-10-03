@@ -1,5 +1,5 @@
 Django>=4.0.9, <4.1
-psycopg2-binary==2.9.7
+psycopg2-binary==2.9.8
 pytz==2023.3.post1
 django-crispy-forms==1.14.0
 django-extensions==3.2.3
