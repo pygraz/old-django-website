@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.8", "3.10"]
+        python-version: ["3.10"]
     env:
-      MAIN_PYTHON_VERSION: "3.8" # same as Ubuntu 20 LTS
+      MAIN_PYTHON_VERSION: "3.10" # same as Ubuntu 22 LTS
 
     steps:
       - uses: actions/checkout@v3
@@ -18,16 +18,24 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install requirements
-        run: |
-          pip install -r requirements/testing.txt
+      - name: Install Ubuntu package dependencies
+        run: sudo apt-get install gettext graphviz graphviz-dev
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v3
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+      - name: Install dependencies
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction
       - name: Run the test suite
-        run: |
-          coverage run manage-testing.py test pygraz_website.apps.accounts pygraz_website.apps.companies pygraz_website.apps.core pygraz_website.apps.meetups
-      - name: Build coverage report
-        run: |
-          coverage html
-          coverage report
+        run: pytest
 
   check-style:
     runs-on: ubuntu-latest

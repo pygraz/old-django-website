@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load i18n %}
+{% load static %}
+{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        {% if meta_description %}
+            <meta name="description" content="{{ meta_description }}">
+        {% endif %}
+        <title>
+          {% if title %}{{ title }}{% else %}pyGRAZ{% endif %}
+        </title>
+        {#  TODO: Add favicon. #}
+    </head>
+    <body>
+        <nav>
+          TODO: Add navigation bar.
+        </nav>
+        <main>
+          {% block content %} {% endblock %}
+        </main>
+        <footer>
+          TODO: Add footer.
+        </footer>
+    </body>
+</html>
