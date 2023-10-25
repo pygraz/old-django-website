@@ -1,3 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
+from core.models import Location, Meetup, Session, SessionType
+
+for model in [Location, Meetup, Session, SessionType]:
+    admin.site.register(model)

@@ -11,4 +11,4 @@
 htmlcov
 /pygraz.dump
 /_old/
-/db.sqlite3
+/pygraz.sqlite3

@@ -1,0 +1,25 @@
+{#  TODO: Add logo. #}
+
+<h1>pyGRAZ</h1>
+
+<p>
+  PyGRAZ ist eine Usergroup zur Python-Programmiersprache in Graz. Wir treffen uns regelmässig am ersten Dienstag im Monat entweder im spektral oder im Gösserbräu.
+</p>
+
+<h2>Nächstes Treffen</h2>
+
+{% if next_meetup %}
+  <p>Am {{ next_meetup.start_date.date }} im {{ next_meetup.location }}</p>
+  <p>{{ next_meetup.description }}</p>
+  {# TODO: Add more details about next Meetup. #}
+{% else %}
+  <p>Derzeit gibt es leider noch keine Informationen zum nächsten Treffen.</p>
+{% endif %}
+
+
+<h2>Vergangene Meetups</h2>
+<ul>
+  {% for meetup in past_meetups %}
+    <li><a href="{% url 'meetup' pk=meetup.pk %}">{{ meetup.start_date.date }}</a></li>
+  {% endfor %}
+</ul>
