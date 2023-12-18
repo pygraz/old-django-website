@@ -1,6 +1,6 @@
 -r base.txt
 
-coverage==7.3.2
+coverage==7.3.3
 pytest-django==4.6.0
 pytest-xdist==3.5.0
 pytest-cov==4.1.0
