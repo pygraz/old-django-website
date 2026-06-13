@@ -1,3 +1,6 @@
+> [!IMPORTANT]  
+> This version of the PyGraz website is obsolete and only preserved for historic purpose. It was replaced by the [ghp-website](https://github.com/pygraz/ghp-website).
+
 # PyGRAZ website
 
 [![Coverage Status](https://coveralls.io/repos/pygraz/website/badge.svg?branch=develop)](https://coveralls.io/r/pygraz/website?branch=develop)
